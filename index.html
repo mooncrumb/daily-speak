@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Speak — American English, for real</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="bg-shapes" aria-hidden="true">
+  <span class="shape shape-1"></span>
+  <span class="shape shape-2"></span>
+  <span class="shape shape-3"></span>
+</div>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">🗣️</span>
+    <span class="brand-name">Daily Speak</span>
+  </div>
+  <div class="streak-pill" id="streakPill">
+    <span class="streak-flame">🔥</span>
+    <span id="streakCount">0</span>
+    <span class="streak-label">day streak</span>
+  </div>
+</header>
+
+<main class="page">
+
+  <section class="hero">
+    <p class="eyebrow">Today's practice · <span id="todayDate"></span></p>
+    <h1>Stop learning English.<br>Start <em>sounding</em> American.</h1>
+    <p class="hero-sub">One real clip from a native speaker, every day. Watch it, say it out loud, make it feel normal in your mouth.</p>
+  </section>
+
+  <section class="lesson-card" id="lessonCard">
+    <div class="lesson-video">
+      <div class="video-frame" id="videoFrame">
+        <!-- YouTube iframe gets injected here -->
+      </div>
+    </div>
+
+    <div class="lesson-content">
+      <span class="tag" id="lessonTag">Slang of the day</span>
+      <h2 class="lesson-phrase" id="lessonPhrase">Loading today's phrase…</h2>
+      <p class="lesson-meaning" id="lessonMeaning"></p>
+
+      <div class="lesson-example" id="lessonExample"></div>
+
+      <button class="speak-btn" id="speakBtn" type="button">
+        <span class="speak-icon">🔊</span> Hear it said out loud
+      </button>
+    </div>
+  </section>
+
+  <section class="repeat-section">
+    <h3>Now it's your turn</h3>
+    <p class="repeat-hint">Say the phrase out loud 3 times. Really move your mouth — don't just whisper it in your head.</p>
+
+    <div class="repeat-tracker" id="repeatTracker">
+      <button class="repeat-dot" data-rep="1" type="button" aria-label="Mark repeat 1 done"></button>
+      <button class="repeat-dot" data-rep="2" type="button" aria-label="Mark repeat 2 done"></button>
+      <button class="repeat-dot" data-rep="3" type="button" aria-label="Mark repeat 3 done"></button>
+    </div>
+
+    <button class="checkin-btn" id="checkinBtn" type="button">I practiced today ✓</button>
+    <p class="checkin-msg" id="checkinMsg"></p>
+  </section>
+
+  <section class="archive-section">
+    <h3>Browse past phrases</h3>
+    <p class="archive-hint">Missed a day, or want to review? Pick any past lesson below.</p>
+    <div class="archive-grid" id="archiveGrid"></div>
+  </section>
+
+</main>
+
+<footer class="page-footer">
+  <p>Built for real ears, not textbooks. New phrase daily.</p>
+</footer>
+
+<script src="lessons.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
