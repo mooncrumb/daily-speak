@@ -4,16 +4,16 @@
    ===================================================== */
 
 :root {
-  --bg: #000000;
-  --bg-card: rgba(15, 15, 15, 0.7);
-  --bg-soft: #1A1A1A;
+  --bg: #1A0F10;
+  --bg-card: rgba(26, 15, 16, 0.7);
+  --bg-soft: #2A1A1E;
 
-  /* Sweet-edgy electric hot pink */
-  --accent: #FF1493;
-  --accent-soft: #FF9BC7;
-  --accent-deep: #C71585;
-  --accent-glow: rgba(255, 20, 147, 0.6);
-
+  /* Muted rose — sophisticated sweet-edgy */
+  --accent: #F79EB4;
+  --accent-soft: #D6A3AF;
+  --accent-deep: #8F3E5E;
+  --accent-glow: rgba(247, 158, 180, 0.5);
+   
   --white: #FFFFFF;
   --text-muted: #C9A6B4;
   --text-dim: #7A5866;
