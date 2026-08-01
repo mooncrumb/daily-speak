@@ -8,13 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800;900&family=Bodoni+Moda:ital,wght@0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<style>
-  .page-finance {
-    --accent: #BE185D;
-    --accent-soft: #FBCFE8;
-    --accent-deep: #831843;
-  }
-</style>
+<link rel="stylesheet" href="pages/finance.css">
 </head>
 <body class="page-finance">
 
@@ -22,10 +16,27 @@
   <div class="wave-active-bar" id="waveActiveBar"></div>
 </div>
 
+<div class="bg-shapes" aria-hidden="true">
+  <span class="shape shape-1"></span>
+  <span class="shape shape-2"></span>
+  <span class="shape shape-3"></span>
+  <span class="shape shape-4"></span>
+</div>
+
+<div class="floating-words" aria-hidden="true">
+  <span class="fw fw-1">rich era</span>
+  <span class="fw fw-2">money</span>
+  <span class="fw fw-3">smart girl</span>
+  <span class="fw fw-4">iykyk</span>
+  <span class="fw fw-5">that girl</span>
+  <span class="fw fw-6">$$$</span>
+  <span class="fw fw-7">boss</span>
+</div>
+
 <nav class="topnav">
   <div class="topnav-inner">
     <a href="index.html" class="topnav-brand">
-      <svg viewBox="0 0 40 40" width="26" height="26" aria-hidden="true">
+      <svg viewBox="0 0 40 40" width="28" height="28" aria-hidden="true">
         <defs>
           <linearGradient id="lipGrad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#FF3D8B"/>
@@ -37,20 +48,14 @@
       the Daily
     </a>
     <div class="topnav-links">
-      <a href="index.html"    class="nav-link"><span class="nav-num">01</span><span class="nav-name">Speak</span></a>
-      <a href="wordbook.html" class="nav-link"><span class="nav-num">02</span><span class="nav-name">Wordbook</span></a>
-      <a href="calendar.html" class="nav-link"><span class="nav-num">03</span><span class="nav-name">Calendar</span></a>
-      <a href="finance.html"  class="nav-link active"><span class="nav-num">04</span><span class="nav-name">Finance</span></a>
-      <a href="vibe.html"     class="nav-link"><span class="nav-num">05</span><span class="nav-name">Vibe</span></a>
+      <a href="index.html"    class="nav-link">speak</a>
+      <a href="wordbook.html" class="nav-link">wordbook</a>
+      <a href="calendar.html" class="nav-link">calendar</a>
+      <a href="finance.html"  class="nav-link active">finance</a>
+      <a href="vibe.html"     class="nav-link">vibe</a>
     </div>
   </div>
 </nav>
-
-<div class="bg-shapes" aria-hidden="true">
-  <span class="shape shape-1"></span>
-  <span class="shape shape-2"></span>
-  <span class="shape shape-3"></span>
-</div>
 
 <main class="page">
 
@@ -62,23 +67,26 @@
         <span class="date-mo"  id="dateMo">AUG</span>
       </div>
       <div class="page-title-block">
-        <span class="page-eyebrow">no. 04 · finance</span>
+        <span class="page-eyebrow">finance / marketing / data</span>
         <h1 class="page-title">smart girl <em>money.</em></h1>
       </div>
     </div>
+    <div class="page-head-right">
+      <span id="dayNumber" style="font-family: var(--font-accent); font-style: italic; font-weight: 900; color: var(--white); font-size: 1.5rem;">concept #1</span>
+    </div>
   </header>
 
-  <div class="coming-soon">
-    <span class="cs-big-num">04</span>
-    <h2 class="cs-title"><em>coming soon</em></h2>
-    <p class="cs-desc">a daily drop of finance, marketing, and data thinking — the kind of stuff nobody teaches you but everyone needs. one concept a day, always something new.</p>
-    <div class="cs-tags">
-      <span class="cs-tag">finance</span>
-      <span class="cs-tag">marketing</span>
-      <span class="cs-tag">data</span>
-      <span class="cs-tag">daily-drip</span>
+  <!-- Big concept card -->
+  <section class="concept-card" id="conceptCard"></section>
+
+  <!-- History strip -->
+  <section class="past-concepts">
+    <div class="past-head">
+      <span class="section-label">recent drops</span>
+      <span class="past-count" id="pastCount">from your feed</span>
     </div>
-  </div>
+    <div class="past-list" id="pastList"></div>
+  </section>
 
 </main>
 
@@ -86,6 +94,8 @@
   <p>learn a little, every day.</p>
 </footer>
 
+<script src="data/finance.js"></script>
 <script src="script.js"></script>
+<script src="pages/finance.js"></script>
 </body>
 </html>

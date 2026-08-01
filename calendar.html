@@ -16,10 +16,27 @@
   <div class="wave-active-bar" id="waveActiveBar"></div>
 </div>
 
+<div class="bg-shapes" aria-hidden="true">
+  <span class="shape shape-1"></span>
+  <span class="shape shape-2"></span>
+  <span class="shape shape-3"></span>
+  <span class="shape shape-4"></span>
+</div>
+
+<div class="floating-words" aria-hidden="true">
+  <span class="fw fw-1">soon</span>
+  <span class="fw fw-2">countdown</span>
+  <span class="fw fw-3">plans</span>
+  <span class="fw fw-4">iykyk</span>
+  <span class="fw fw-5">save the date</span>
+  <span class="fw fw-6">era</span>
+  <span class="fw fw-7">booked</span>
+</div>
+
 <nav class="topnav">
   <div class="topnav-inner">
     <a href="index.html" class="topnav-brand">
-      <svg viewBox="0 0 40 40" width="26" height="26" aria-hidden="true">
+      <svg viewBox="0 0 40 40" width="28" height="28" aria-hidden="true">
         <defs>
           <linearGradient id="lipGrad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#FF3D8B"/>
@@ -31,20 +48,14 @@
       the Daily
     </a>
     <div class="topnav-links">
-      <a href="index.html"    class="nav-link"><span class="nav-num">01</span><span class="nav-name">Speak</span></a>
-      <a href="wordbook.html" class="nav-link"><span class="nav-num">02</span><span class="nav-name">Wordbook</span></a>
-      <a href="calendar.html" class="nav-link active"><span class="nav-num">03</span><span class="nav-name">Calendar</span></a>
-      <a href="finance.html"  class="nav-link"><span class="nav-num">04</span><span class="nav-name">Finance</span></a>
-      <a href="vibe.html"     class="nav-link"><span class="nav-num">05</span><span class="nav-name">Vibe</span></a>
+      <a href="index.html"    class="nav-link">speak</a>
+      <a href="wordbook.html" class="nav-link">wordbook</a>
+      <a href="calendar.html" class="nav-link active">calendar</a>
+      <a href="finance.html"  class="nav-link">finance</a>
+      <a href="vibe.html"     class="nav-link">vibe</a>
     </div>
   </div>
 </nav>
-
-<div class="bg-shapes" aria-hidden="true">
-  <span class="shape shape-1"></span>
-  <span class="shape shape-2"></span>
-  <span class="shape shape-3"></span>
-</div>
 
 <main class="page">
 
@@ -56,57 +67,65 @@
         <span class="date-mo"  id="dateMo">AUG</span>
       </div>
       <div class="page-title-block">
-        <span class="page-eyebrow">no. 03 · calendar</span>
+        <span class="page-eyebrow">calendar</span>
         <h1 class="page-title">the countdown <em>desk.</em></h1>
       </div>
     </div>
     <div class="page-head-right">
-      <span id="totalEvents" style="font-family: var(--font-accent); font-style: italic; font-weight: 900; color: var(--white); font-size: 1.4rem;">0 plans</span>
+      <span id="totalEvents" style="font-family: var(--font-accent); font-style: italic; font-weight: 900; color: var(--white); font-size: 1.5rem;">0 plans</span>
     </div>
   </header>
 
-  <!-- Add event form -->
+  <!-- BIG COUNTDOWN HERO (nearest event) -->
+  <section class="hero-countdown" id="heroCountdown"></section>
+
+  <!-- MONTH VIEW -->
+  <section class="month-section">
+    <div class="month-head">
+      <button class="month-nav" id="prevMonth" type="button" aria-label="Previous month">‹</button>
+      <h2 class="month-title" id="monthTitle">August 2026</h2>
+      <button class="month-nav" id="nextMonth" type="button" aria-label="Next month">›</button>
+    </div>
+
+    <div class="weekdays">
+      <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+    </div>
+
+    <div class="month-grid" id="monthGrid"></div>
+  </section>
+
+  <!-- ADD FORM -->
   <section class="cal-add">
     <div class="cal-add-head">
-      <span class="section-label">add a new plan</span>
+      <span class="section-label">drop a new plan</span>
     </div>
     <form class="cal-form" id="addForm">
       <input class="cal-input" type="text" id="eventName" placeholder="what's the plan?" required maxlength="60">
       <input class="cal-input" type="date" id="eventDate" required>
-      <select class="cal-input" id="eventEmoji" aria-label="pick an emoji">
-        <option value="\u{1F338}">🌸 general</option>
-        <option value="\u2708\uFE0F">✈️ trip</option>
-        <option value="\u{1F393}">🎓 exam</option>
-        <option value="\u{1F4BC}">💼 work</option>
-        <option value="\u{1F389}">🎉 party</option>
-        <option value="\u{1F495}">💕 date</option>
-        <option value="\u{1F4B0}">💰 money</option>
-        <option value="\u{1F4AA}">💪 fitness</option>
-        <option value="\u{1F4DA}">📚 study</option>
-        <option value="\u{1F484}">💄 beauty</option>
+      <select class="cal-input" id="eventEmoji" aria-label="emoji">
+        <option value="🌸">🌸 general</option>
+        <option value="✈️">✈️ trip</option>
+        <option value="🎓">🎓 exam</option>
+        <option value="💼">💼 work</option>
+        <option value="🎉">🎉 party</option>
+        <option value="💕">💕 date</option>
+        <option value="💰">💰 money</option>
+        <option value="💪">💪 fitness</option>
+        <option value="📚">📚 study</option>
+        <option value="💄">💄 beauty</option>
+        <option value="🍸">🍸 night out</option>
+        <option value="🎂">🎂 birthday</option>
       </select>
-      <button class="cal-btn" type="submit">+ add plan</button>
+      <button class="cal-btn" type="submit">+ book it</button>
     </form>
   </section>
 
-  <!-- Events list -->
+  <!-- UPCOMING LIST -->
   <section class="cal-events">
     <div class="cal-events-head">
       <span class="section-label">upcoming</span>
     </div>
-    <div class="cal-list" id="eventsList">
-      <div class="cal-empty">
-        <p>no plans yet. add your first one above.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Past events (collapsed) -->
-  <section class="cal-past" id="pastSection" style="display:none;">
-    <div class="cal-events-head">
-      <span class="section-label">past</span>
-    </div>
-    <div class="cal-list" id="pastList"></div>
+    <div class="cal-list" id="eventsList"></div>
   </section>
 
 </main>

@@ -16,10 +16,27 @@
   <div class="wave-active-bar" id="waveActiveBar"></div>
 </div>
 
+<div class="bg-shapes" aria-hidden="true">
+  <span class="shape shape-1"></span>
+  <span class="shape shape-2"></span>
+  <span class="shape shape-3"></span>
+  <span class="shape shape-4"></span>
+</div>
+
+<div class="floating-words" aria-hidden="true">
+  <span class="fw fw-1">smart girl</span>
+  <span class="fw fw-2">iykyk</span>
+  <span class="fw fw-3">era</span>
+  <span class="fw fw-4">vocab</span>
+  <span class="fw fw-5">lock in</span>
+  <span class="fw fw-6">that girl</span>
+  <span class="fw fw-7">study</span>
+</div>
+
 <nav class="topnav">
   <div class="topnav-inner">
     <a href="index.html" class="topnav-brand">
-      <svg viewBox="0 0 40 40" width="26" height="26" aria-hidden="true">
+      <svg viewBox="0 0 40 40" width="28" height="28" aria-hidden="true">
         <defs>
           <linearGradient id="lipGrad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#FF3D8B"/>
@@ -31,20 +48,14 @@
       the Daily
     </a>
     <div class="topnav-links">
-      <a href="index.html"    class="nav-link"><span class="nav-num">01</span><span class="nav-name">Speak</span></a>
-      <a href="wordbook.html" class="nav-link active"><span class="nav-num">02</span><span class="nav-name">Wordbook</span></a>
-      <a href="calendar.html" class="nav-link"><span class="nav-num">03</span><span class="nav-name">Calendar</span></a>
-      <a href="finance.html"  class="nav-link"><span class="nav-num">04</span><span class="nav-name">Finance</span></a>
-      <a href="vibe.html"     class="nav-link"><span class="nav-num">05</span><span class="nav-name">Vibe</span></a>
+      <a href="index.html"    class="nav-link">speak</a>
+      <a href="wordbook.html" class="nav-link active">wordbook</a>
+      <a href="calendar.html" class="nav-link">calendar</a>
+      <a href="finance.html"  class="nav-link">finance</a>
+      <a href="vibe.html"     class="nav-link">vibe</a>
     </div>
   </div>
 </nav>
-
-<div class="bg-shapes" aria-hidden="true">
-  <span class="shape shape-1"></span>
-  <span class="shape shape-2"></span>
-  <span class="shape shape-3"></span>
-</div>
 
 <main class="page">
 
@@ -56,33 +67,30 @@
         <span class="date-mo"  id="dateMo">AUG</span>
       </div>
       <div class="page-title-block">
-        <span class="page-eyebrow">no. 02 · wordbook</span>
+        <span class="page-eyebrow">wordbook</span>
         <h1 class="page-title">smart girl <em>vocabulary.</em></h1>
       </div>
     </div>
     <div class="page-head-right">
       today's words<br>
-      <span style="font-family: var(--font-accent); font-style: italic; font-weight: 900; color: var(--white); font-size: 1.4rem;">5 new</span>
+      <span style="font-family: var(--font-accent); font-style: italic; font-weight: 900; color: var(--white); font-size: 1.5rem;">5 new</span>
     </div>
   </header>
 
-  <!-- Progress ribbon -->
   <div class="wb-progress">
-    <span class="wb-progress-label">this week's collection</span>
+    <span class="section-label">this week</span>
     <div class="wb-dots" id="weekDots"></div>
   </div>
 
-  <!-- Today's word cards -->
   <section class="wb-cards" id="wordCards"></section>
 
-  <!-- Stash of previously learned -->
   <section class="wb-stash">
     <div class="wb-stash-head">
       <span class="section-label">the stash</span>
       <span class="wb-stash-count" id="stashCount">0 words learned</span>
     </div>
     <div class="wb-stash-list" id="stashList">
-      <p class="wb-stash-empty">no words in your stash yet. tap "got it" on any word above to add it.</p>
+      <p class="wb-stash-empty">no words in your stash yet. tap "got it" on any word above.</p>
     </div>
   </section>
 

@@ -1,0 +1,173 @@
+/* ================================
+   FINANCE — hot pink, big concept
+   ================================ */
+
+.concept-card {
+  background: rgba(26, 15, 20, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 61, 139, 0.2);
+  border-radius: 32px;
+  padding: 40px;
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(255, 61, 139, 0.15);
+}
+
+.concept-card::before {
+  content: "";
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, var(--accent) 0%, transparent 60%);
+  opacity: 0.25;
+  filter: blur(50px);
+}
+
+.concept-cat {
+  display: inline-block;
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: lowercase;
+  padding: 5px 14px;
+  background: rgba(255, 61, 139, 0.12);
+  border: 1px solid rgba(255, 61, 139, 0.3);
+  border-radius: 999px;
+  margin-bottom: 20px;
+  z-index: 1;
+  position: relative;
+}
+
+.concept-title {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 900;
+  font-size: clamp(2.4rem, 5.5vw, 3.8rem);
+  color: var(--white);
+  margin: 0 0 16px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: lowercase;
+  background: linear-gradient(120deg, var(--white) 30%, var(--accent-soft) 60%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  z-index: 1;
+  position: relative;
+}
+
+.concept-hook {
+  font-family: var(--font-accent);
+  font-style: italic;
+  color: var(--accent-soft);
+  font-size: 1.25rem;
+  line-height: 1.4;
+  margin: 0 0 24px;
+  max-width: 700px;
+  z-index: 1;
+  position: relative;
+}
+
+.concept-explain {
+  color: var(--white);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin: 0 0 24px;
+  max-width: 700px;
+  z-index: 1;
+  position: relative;
+}
+
+.concept-tag {
+  display: inline-block;
+  font-family: var(--font-accent);
+  font-style: italic;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  padding-top: 20px;
+  border-top: 1px dashed rgba(255, 180, 209, 0.2);
+  position: relative;
+  z-index: 1;
+}
+
+/* history strip */
+.past-concepts {
+  margin-top: 20px;
+}
+
+.past-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.past-count {
+  font-family: var(--font-accent);
+  font-style: italic;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.past-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+.past-item {
+  background: rgba(26, 15, 20, 0.55);
+  border: 1px solid rgba(255, 61, 139, 0.12);
+  border-radius: 16px;
+  padding: 16px 18px;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.past-item:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 61, 139, 0.2);
+}
+
+.past-item .past-cat {
+  font-family: var(--font-accent);
+  font-style: italic;
+  color: var(--accent);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: lowercase;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.past-item .past-title {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 900;
+  color: var(--white);
+  font-size: 1.1rem;
+  margin: 0 0 4px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-transform: lowercase;
+}
+
+.past-item .past-hook {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  line-height: 1.4;
+  margin: 0;
+  font-style: italic;
+}
+
+@media (max-width: 600px) {
+  .concept-card { padding: 28px 22px; }
+}

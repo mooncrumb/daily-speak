@@ -12,16 +12,31 @@
 </head>
 <body class="page-speak">
 
-<!-- vibe strip -->
 <div class="speak-o-meter" aria-hidden="true">
   <div class="wave-active-bar" id="waveActiveBar"></div>
 </div>
 
-<!-- top nav (same on every page) -->
+<div class="bg-shapes" aria-hidden="true">
+  <span class="shape shape-1"></span>
+  <span class="shape shape-2"></span>
+  <span class="shape shape-3"></span>
+  <span class="shape shape-4"></span>
+</div>
+
+<div class="floating-words" aria-hidden="true">
+  <span class="fw fw-1">no cap</span>
+  <span class="fw fw-2">slay</span>
+  <span class="fw fw-3">bet</span>
+  <span class="fw fw-4">iykyk</span>
+  <span class="fw fw-5">fr fr</span>
+  <span class="fw fw-6">lowkey</span>
+  <span class="fw fw-7">obsessed</span>
+</div>
+
 <nav class="topnav">
   <div class="topnav-inner">
     <a href="index.html" class="topnav-brand">
-      <svg viewBox="0 0 40 40" width="26" height="26" aria-hidden="true">
+      <svg viewBox="0 0 40 40" width="28" height="28" aria-hidden="true">
         <defs>
           <linearGradient id="lipGrad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#FF3D8B"/>
@@ -33,24 +48,17 @@
       the Daily
     </a>
     <div class="topnav-links">
-      <a href="index.html"    class="nav-link active"><span class="nav-num">01</span><span class="nav-name">Speak</span></a>
-      <a href="wordbook.html" class="nav-link"><span class="nav-num">02</span><span class="nav-name">Wordbook</span></a>
-      <a href="calendar.html" class="nav-link"><span class="nav-num">03</span><span class="nav-name">Calendar</span></a>
-      <a href="finance.html"  class="nav-link"><span class="nav-num">04</span><span class="nav-name">Finance</span></a>
-      <a href="vibe.html"     class="nav-link"><span class="nav-num">05</span><span class="nav-name">Vibe</span></a>
+      <a href="index.html"    class="nav-link active">speak</a>
+      <a href="wordbook.html" class="nav-link">wordbook</a>
+      <a href="calendar.html" class="nav-link">calendar</a>
+      <a href="finance.html"  class="nav-link">finance</a>
+      <a href="vibe.html"     class="nav-link">vibe</a>
     </div>
   </div>
 </nav>
 
-<div class="bg-shapes" aria-hidden="true">
-  <span class="shape shape-1"></span>
-  <span class="shape shape-2"></span>
-  <span class="shape shape-3"></span>
-</div>
-
 <main class="page">
 
-  <!-- page head: date + title + mood -->
   <header class="page-head">
     <div class="page-head-left">
       <div class="date-block">
@@ -59,13 +67,13 @@
         <span class="date-mo"  id="dateMo">AUG</span>
       </div>
       <div class="page-title-block">
-        <span class="page-eyebrow">no. 01 · speak</span>
+        <span class="page-eyebrow">speak</span>
         <h1 class="page-title">sound like you <em>mean it.</em></h1>
       </div>
     </div>
     <div class="page-head-right">
       today's mood<br>
-      <span id="moodQuote" style="font-family: var(--font-accent); font-style: italic; font-weight: 900; color: var(--white); font-size: 1.4rem;">no cap fr fr</span>
+      <span id="moodQuote" style="font-family: var(--font-accent); font-style: italic; font-weight: 900; color: var(--white); font-size: 1.5rem;">no cap fr fr</span>
     </div>
   </header>
 
@@ -92,9 +100,9 @@
 
     <div class="phrases-section">
       <div class="phrases-head">
-        <span class="phrases-num">no. 03</span>
+        <span class="section-label">the good stuff</span>
         <h2 class="phrases-title">phrases <em>to steal.</em></h2>
-        <p class="phrases-sub">the good stuff, pulled from today's transcript</p>
+        <p class="phrases-sub">pulled straight from today's transcript</p>
       </div>
       <div class="phrases-grid" id="highlights"></div>
     </div>

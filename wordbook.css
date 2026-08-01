@@ -1,36 +1,19 @@
 /* ================================
-   WORDBOOK page — rose-purple pink
+   WORDBOOK — hot pink, sweet-edgy
    ================================ */
 
-.page-wordbook {
-  --accent: #D946EF;
-  --accent-soft: #F5B4FF;
-  --accent-deep: #86198F;
-}
-
-/* ---------- weekly progress ribbon ---------- */
-
+/* progress ribbon */
 .wb-progress {
   display: flex;
   align-items: center;
   gap: 16px;
   margin-bottom: 24px;
   padding: 14px 18px;
-  background: rgba(26, 15, 20, 0.5);
+  background: rgba(26, 15, 20, 0.55);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(217, 70, 239, 0.15);
+  border: 1px solid rgba(255, 61, 139, 0.15);
   border-radius: 16px;
-}
-
-.wb-progress-label {
-  font-family: var(--font-accent);
-  font-style: italic;
-  color: var(--accent);
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: lowercase;
 }
 
 .wb-dots {
@@ -44,7 +27,7 @@
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  border: 1px solid rgba(217, 70, 239, 0.25);
+  border: 1px solid rgba(255, 61, 139, 0.25);
   background: rgba(10, 5, 8, 0.4);
   display: flex;
   align-items: center;
@@ -61,16 +44,16 @@
   background: linear-gradient(135deg, var(--accent), var(--accent-deep));
   color: var(--white);
   border-color: transparent;
-  box-shadow: 0 0 12px rgba(217, 70, 239, 0.4);
+  box-shadow: 0 0 12px var(--accent-glow);
 }
 
 .wb-dot.today {
   border: 2px solid var(--accent);
   color: var(--accent);
+  box-shadow: 0 0 12px var(--accent-glow);
 }
 
-/* ---------- word cards ---------- */
-
+/* word cards */
 .wb-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -82,7 +65,7 @@
   background: rgba(26, 15, 20, 0.6);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(217, 70, 239, 0.15);
+  border: 1px solid rgba(255, 61, 139, 0.15);
   border-radius: 22px;
   padding: 26px;
   position: relative;
@@ -93,9 +76,7 @@
 .wb-card::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: 4px;
   background: linear-gradient(90deg, var(--accent), var(--accent-soft), var(--accent));
   opacity: 0.7;
@@ -104,7 +85,7 @@
 .wb-card:hover {
   transform: translateY(-3px);
   border-color: var(--accent);
-  box-shadow: 0 12px 32px rgba(217, 70, 239, 0.25);
+  box-shadow: 0 12px 32px rgba(255, 61, 139, 0.25);
 }
 
 .wb-index {
@@ -116,7 +97,7 @@
   font-weight: 900;
   color: var(--accent);
   font-size: 2rem;
-  opacity: 0.25;
+  opacity: 0.3;
   line-height: 1;
 }
 
@@ -154,7 +135,7 @@
 }
 
 .wb-example {
-  background: rgba(217, 70, 239, 0.08);
+  background: rgba(255, 61, 139, 0.08);
   border-left: 2px solid var(--accent);
   border-radius: 8px;
   padding: 10px 14px;
@@ -197,17 +178,17 @@
 .wb-btn-got {
   background: transparent;
   color: var(--accent-soft);
-  border: 1px solid rgba(217, 70, 239, 0.3);
+  border: 1px solid rgba(255, 61, 139, 0.35);
 }
 .wb-btn-got:hover {
-  background: rgba(217, 70, 239, 0.1);
+  background: rgba(255, 61, 139, 0.1);
   border-color: var(--accent);
 }
 .wb-btn-got.done {
   background: linear-gradient(135deg, var(--accent), var(--accent-deep));
   color: var(--white);
   border-color: transparent;
-  box-shadow: 0 0 14px rgba(217, 70, 239, 0.5);
+  box-shadow: 0 0 14px var(--accent-glow);
 }
 
 .wb-level {
@@ -221,10 +202,9 @@
   font-weight: 700;
 }
 
-/* ---------- stash (learned words) ---------- */
-
+/* stash */
 .wb-stash {
-  border-top: 1px solid rgba(217, 70, 239, 0.15);
+  border-top: 1px solid rgba(255, 61, 139, 0.15);
   padding-top: 32px;
 }
 
@@ -257,9 +237,8 @@
   border-radius: 999px;
   font-size: 0.85rem;
   font-weight: 700;
-  border: 1px solid rgba(217, 70, 239, 0.2);
+  border: 1px solid rgba(255, 61, 139, 0.2);
   transition: all 0.15s ease;
-  cursor: default;
 }
 
 .wb-stash-tag:hover {
