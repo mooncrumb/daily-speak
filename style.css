@@ -4,15 +4,15 @@
    ===================================================== */
 
 :root {
-  --bg: #0A0508;
-  --bg-card: rgba(26, 15, 20, 0.6);
-  --bg-soft: #241419;
+  --bg: #000000;
+  --bg-card: rgba(15, 15, 15, 0.7);
+  --bg-soft: #1A1A1A;
 
-  /* Sweet-edgy hot pink (the good one from the beginning) */
-  --accent: #FF3D8B;
-  --accent-soft: #FFB4D1;
-  --accent-deep: #B8306B;
-  --accent-glow: rgba(255, 61, 139, 0.5);
+  /* Sweet-edgy electric hot pink */
+  --accent: #FF1493;
+  --accent-soft: #FF9BC7;
+  --accent-deep: #C71585;
+  --accent-glow: rgba(255, 20, 147, 0.6);
 
   --white: #FFFFFF;
   --text-muted: #C9A6B4;
