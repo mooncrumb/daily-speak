@@ -1,0 +1,228 @@
+/* ================================
+   CALENDAR page — candy pink
+   ================================ */
+
+.page-calendar {
+  --accent: #EC4899;
+  --accent-soft: #FBCFE8;
+  --accent-deep: #9D174D;
+}
+
+/* ---------- add form ---------- */
+
+.cal-add {
+  background: rgba(26, 15, 20, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(236, 72, 153, 0.15);
+  border-radius: 22px;
+  padding: 22px;
+  margin-bottom: 32px;
+}
+
+.cal-add-head {
+  margin-bottom: 12px;
+}
+
+.cal-form {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr auto auto;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.cal-input {
+  background: rgba(10, 5, 8, 0.6);
+  border: 1px solid rgba(236, 72, 153, 0.2);
+  border-radius: 12px;
+  padding: 11px 14px;
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: border-color 0.15s ease;
+}
+
+.cal-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.15);
+}
+
+.cal-input::placeholder {
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+/* firefox date input tweak */
+input[type="date"].cal-input {
+  color-scheme: dark;
+}
+
+.cal-btn {
+  background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+  color: var(--white);
+  border: none;
+  border-radius: 12px;
+  padding: 11px 20px;
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 4px 16px rgba(236, 72, 153, 0.4);
+  white-space: nowrap;
+}
+
+.cal-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(236, 72, 153, 0.55);
+}
+
+/* ---------- events list ---------- */
+
+.cal-events-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.cal-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+.cal-event {
+  background: rgba(26, 15, 20, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(236, 72, 153, 0.15);
+  border-radius: 18px;
+  padding: 20px;
+  position: relative;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+  overflow: hidden;
+}
+
+.cal-event:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+}
+
+.cal-event.urgent {
+  border-color: var(--accent);
+  box-shadow: 0 0 32px rgba(236, 72, 153, 0.25);
+}
+
+.cal-event.urgent::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-soft), var(--accent));
+}
+
+.cal-event.past {
+  opacity: 0.5;
+}
+
+.cal-emoji {
+  font-size: 1.8rem;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.cal-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--white);
+  margin: 0 0 4px;
+  line-height: 1.25;
+  word-break: break-word;
+}
+
+.cal-date {
+  font-family: var(--font-accent);
+  font-style: italic;
+  color: var(--accent-soft);
+  font-size: 0.82rem;
+  margin-bottom: 14px;
+}
+
+.cal-countdown {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.cal-countdown-num {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 900;
+  font-size: 2.4rem;
+  line-height: 1;
+  background: linear-gradient(120deg, var(--white) 20%, var(--accent-soft) 60%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.02em;
+}
+
+.cal-countdown-label {
+  font-family: var(--font-body);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.cal-delete {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(236, 72, 153, 0.15);
+  color: var(--accent-soft);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.cal-delete:hover {
+  background: var(--accent);
+  color: var(--white);
+}
+
+.cal-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-dim);
+  font-style: italic;
+  border: 1px dashed rgba(236, 72, 153, 0.2);
+  border-radius: 18px;
+}
+
+.cal-empty p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.cal-past { margin-top: 8px; }
+
+@media (max-width: 700px) {
+  .cal-form {
+    grid-template-columns: 1fr;
+  }
+}

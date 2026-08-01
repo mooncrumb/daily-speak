@@ -3,21 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Speak · the Daily</title>
+<title>Calendar · the Daily</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800;900&family=Bodoni+Moda:ital,wght@0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="pages/speak.css">
+<link rel="stylesheet" href="pages/calendar.css">
 </head>
-<body class="page-speak">
+<body class="page-calendar">
 
-<!-- vibe strip -->
 <div class="speak-o-meter" aria-hidden="true">
   <div class="wave-active-bar" id="waveActiveBar"></div>
 </div>
 
-<!-- top nav (same on every page) -->
 <nav class="topnav">
   <div class="topnav-inner">
     <a href="index.html" class="topnav-brand">
@@ -33,9 +31,9 @@
       the Daily
     </a>
     <div class="topnav-links">
-      <a href="index.html"    class="nav-link active"><span class="nav-num">01</span><span class="nav-name">Speak</span></a>
+      <a href="index.html"    class="nav-link"><span class="nav-num">01</span><span class="nav-name">Speak</span></a>
       <a href="wordbook.html" class="nav-link"><span class="nav-num">02</span><span class="nav-name">Wordbook</span></a>
-      <a href="calendar.html" class="nav-link"><span class="nav-num">03</span><span class="nav-name">Calendar</span></a>
+      <a href="calendar.html" class="nav-link active"><span class="nav-num">03</span><span class="nav-name">Calendar</span></a>
       <a href="finance.html"  class="nav-link"><span class="nav-num">04</span><span class="nav-name">Finance</span></a>
       <a href="vibe.html"     class="nav-link"><span class="nav-num">05</span><span class="nav-name">Vibe</span></a>
     </div>
@@ -50,7 +48,6 @@
 
 <main class="page">
 
-  <!-- page head: date + title + mood -->
   <header class="page-head">
     <div class="page-head-left">
       <div class="date-block">
@@ -59,56 +56,66 @@
         <span class="date-mo"  id="dateMo">AUG</span>
       </div>
       <div class="page-title-block">
-        <span class="page-eyebrow">no. 01 · speak</span>
-        <h1 class="page-title">sound like you <em>mean it.</em></h1>
+        <span class="page-eyebrow">no. 03 · calendar</span>
+        <h1 class="page-title">the countdown <em>desk.</em></h1>
       </div>
     </div>
     <div class="page-head-right">
-      today's mood<br>
-      <span id="moodQuote" style="font-family: var(--font-accent); font-style: italic; font-weight: 900; color: var(--white); font-size: 1.4rem;">no cap fr fr</span>
+      <span id="totalEvents" style="font-family: var(--font-accent); font-style: italic; font-weight: 900; color: var(--white); font-size: 1.4rem;">0 plans</span>
     </div>
   </header>
 
-  <section class="lesson">
-    <div class="lesson-meta">
-      <span class="scene-line" id="sceneText"></span>
-      <span class="channel-badge" id="channelBadge"></span>
+  <!-- Add event form -->
+  <section class="cal-add">
+    <div class="cal-add-head">
+      <span class="section-label">add a new plan</span>
     </div>
+    <form class="cal-form" id="addForm">
+      <input class="cal-input" type="text" id="eventName" placeholder="what's the plan?" required maxlength="60">
+      <input class="cal-input" type="date" id="eventDate" required>
+      <select class="cal-input" id="eventEmoji" aria-label="pick an emoji">
+        <option value="\u{1F338}">🌸 general</option>
+        <option value="\u2708\uFE0F">✈️ trip</option>
+        <option value="\u{1F393}">🎓 exam</option>
+        <option value="\u{1F4BC}">💼 work</option>
+        <option value="\u{1F389}">🎉 party</option>
+        <option value="\u{1F495}">💕 date</option>
+        <option value="\u{1F4B0}">💰 money</option>
+        <option value="\u{1F4AA}">💪 fitness</option>
+        <option value="\u{1F4DA}">📚 study</option>
+        <option value="\u{1F484}">💄 beauty</option>
+      </select>
+      <button class="cal-btn" type="submit">+ add plan</button>
+    </form>
+  </section>
 
-    <div class="lesson-body">
-      <div class="video-column">
-        <div class="video-frame" id="videoFrame"></div>
-        <p class="video-hint">▸ click any line on the right to jump the video</p>
-      </div>
-
-      <div class="transcript-column">
-        <div class="transcript-head">
-          <span class="section-label">live transcript</span>
-          <span class="sync-dot" title="synced with video"></span>
-        </div>
-        <div class="transcript" id="transcript"></div>
+  <!-- Events list -->
+  <section class="cal-events">
+    <div class="cal-events-head">
+      <span class="section-label">upcoming</span>
+    </div>
+    <div class="cal-list" id="eventsList">
+      <div class="cal-empty">
+        <p>no plans yet. add your first one above.</p>
       </div>
     </div>
+  </section>
 
-    <div class="phrases-section">
-      <div class="phrases-head">
-        <span class="phrases-num">no. 03</span>
-        <h2 class="phrases-title">phrases <em>to steal.</em></h2>
-        <p class="phrases-sub">the good stuff, pulled from today's transcript</p>
-      </div>
-      <div class="phrases-grid" id="highlights"></div>
+  <!-- Past events (collapsed) -->
+  <section class="cal-past" id="pastSection" style="display:none;">
+    <div class="cal-events-head">
+      <span class="section-label">past</span>
     </div>
+    <div class="cal-list" id="pastList"></div>
   </section>
 
 </main>
 
 <footer class="page-footer">
-  <p>built for real ears. not for textbooks.</p>
+  <p>counting down to the things you're waiting for.</p>
 </footer>
 
-<script src="https://www.youtube.com/iframe_api"></script>
-<script src="data/lessons.js"></script>
 <script src="script.js"></script>
-<script src="pages/speak.js"></script>
+<script src="pages/calendar.js"></script>
 </body>
 </html>

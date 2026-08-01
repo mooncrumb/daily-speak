@@ -1,0 +1,280 @@
+/* ================================
+   WORDBOOK page — rose-purple pink
+   ================================ */
+
+.page-wordbook {
+  --accent: #D946EF;
+  --accent-soft: #F5B4FF;
+  --accent-deep: #86198F;
+}
+
+/* ---------- weekly progress ribbon ---------- */
+
+.wb-progress {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 14px 18px;
+  background: rgba(26, 15, 20, 0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(217, 70, 239, 0.15);
+  border-radius: 16px;
+}
+
+.wb-progress-label {
+  font-family: var(--font-accent);
+  font-style: italic;
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+}
+
+.wb-dots {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.wb-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid rgba(217, 70, 239, 0.25);
+  background: rgba(10, 5, 8, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  letter-spacing: 0.05em;
+}
+
+.wb-dot.filled {
+  background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+  color: var(--white);
+  border-color: transparent;
+  box-shadow: 0 0 12px rgba(217, 70, 239, 0.4);
+}
+
+.wb-dot.today {
+  border: 2px solid var(--accent);
+  color: var(--accent);
+}
+
+/* ---------- word cards ---------- */
+
+.wb-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 18px;
+  margin-bottom: 48px;
+}
+
+.wb-card {
+  background: rgba(26, 15, 20, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(217, 70, 239, 0.15);
+  border-radius: 22px;
+  padding: 26px;
+  position: relative;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+}
+
+.wb-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-soft), var(--accent));
+  opacity: 0.7;
+}
+
+.wb-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+  box-shadow: 0 12px 32px rgba(217, 70, 239, 0.25);
+}
+
+.wb-index {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 900;
+  color: var(--accent);
+  font-size: 2rem;
+  opacity: 0.25;
+  line-height: 1;
+}
+
+.wb-word {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 900;
+  font-size: 2.2rem;
+  line-height: 1;
+  background: linear-gradient(120deg, var(--white) 20%, var(--accent-soft) 60%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0 0 4px;
+  letter-spacing: -0.02em;
+}
+
+.wb-pos {
+  display: inline-block;
+  font-family: var(--font-accent);
+  font-style: italic;
+  color: var(--accent-soft);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: lowercase;
+  margin-bottom: 14px;
+}
+
+.wb-meaning {
+  color: var(--white);
+  font-size: 1rem;
+  line-height: 1.55;
+  margin: 0 0 12px;
+}
+
+.wb-example {
+  background: rgba(217, 70, 239, 0.08);
+  border-left: 2px solid var(--accent);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: var(--accent-soft);
+  font-style: italic;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.wb-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.wb-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: none;
+}
+
+.wb-btn-hear {
+  background: var(--white);
+  color: var(--bg);
+}
+.wb-btn-hear:hover {
+  background: var(--accent-soft);
+  transform: translateY(-1px);
+}
+
+.wb-btn-got {
+  background: transparent;
+  color: var(--accent-soft);
+  border: 1px solid rgba(217, 70, 239, 0.3);
+}
+.wb-btn-got:hover {
+  background: rgba(217, 70, 239, 0.1);
+  border-color: var(--accent);
+}
+.wb-btn-got.done {
+  background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+  color: var(--white);
+  border-color: transparent;
+  box-shadow: 0 0 14px rgba(217, 70, 239, 0.5);
+}
+
+.wb-level {
+  margin-left: auto;
+  font-family: var(--font-accent);
+  font-style: italic;
+  color: var(--text-dim);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+/* ---------- stash (learned words) ---------- */
+
+.wb-stash {
+  border-top: 1px solid rgba(217, 70, 239, 0.15);
+  padding-top: 32px;
+}
+
+.wb-stash-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.wb-stash-count {
+  font-family: var(--font-accent);
+  font-style: italic;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.wb-stash-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.wb-stash-tag {
+  background: rgba(26, 15, 20, 0.7);
+  color: var(--accent-soft);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border: 1px solid rgba(217, 70, 239, 0.2);
+  transition: all 0.15s ease;
+  cursor: default;
+}
+
+.wb-stash-tag:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.wb-stash-empty {
+  color: var(--text-dim);
+  font-style: italic;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 600px) {
+  .wb-card { padding: 22px; }
+  .wb-word { font-size: 1.8rem; }
+}
