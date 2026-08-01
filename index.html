@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Daily Speak — American English, for real</title>
+<title>Daily Speak — sound like you mean it</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800;900&family=Bodoni+Moda:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,11 +15,34 @@
   <span class="shape shape-1"></span>
   <span class="shape shape-2"></span>
   <span class="shape shape-3"></span>
+  <span class="shape shape-4"></span>
+</div>
+
+<!-- floating slang keywords in the background -->
+<div class="floating-words" aria-hidden="true">
+  <span class="fw fw-1">no cap</span>
+  <span class="fw fw-2">slay</span>
+  <span class="fw fw-3">bet</span>
+  <span class="fw fw-4">iykyk</span>
+  <span class="fw fw-5">fr fr</span>
+  <span class="fw fw-6">lowkey</span>
 </div>
 
 <header class="topbar">
   <div class="brand">
-    <span class="brand-mark">🗣️</span>
+    <span class="brand-mark" aria-hidden="true">
+      <!-- custom sweet-edgy logo: kiss mark shape -->
+      <svg viewBox="0 0 40 40" width="32" height="32">
+        <defs>
+          <linearGradient id="lipGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FF3D8B"/>
+            <stop offset="100%" stop-color="#B8306B"/>
+          </linearGradient>
+        </defs>
+        <path d="M20 12 C 15 6, 6 8, 6 16 C 6 22, 12 28, 20 34 C 28 28, 34 22, 34 16 C 34 8, 25 6, 20 12 Z" fill="url(#lipGrad)"/>
+        <path d="M20 12 C 18 14, 18 16, 20 18 C 22 16, 22 14, 20 12 Z" fill="#0A0A0A" opacity="0.35"/>
+      </svg>
+    </span>
     <span class="brand-name">Daily Speak</span>
   </div>
   <div class="streak-pill" id="streakPill">
@@ -37,14 +60,21 @@
     <p class="hero-sub">One real clip from a native speaker, every day. Watch it, say it out loud, make it feel normal in your mouth.</p>
   </section>
 
-  <section class="lesson-card" id="lessonCard">
-    <div class="lesson-video">
+  <!-- SPLIT LAYOUT: left video, right lesson text -->
+  <section class="lesson-split" id="lessonCard">
+    <div class="lesson-left">
       <div class="video-frame" id="videoFrame">
-        <!-- YouTube iframe gets injected here -->
+        <!-- YouTube iframe injected here -->
+      </div>
+
+      <div class="tag-cloud">
+        <span class="tag-mini">#realtalk</span>
+        <span class="tag-mini">#slang</span>
+        <span class="tag-mini">#nativevibes</span>
       </div>
     </div>
 
-    <div class="lesson-content">
+    <div class="lesson-right">
       <span class="tag" id="lessonTag">Slang of the day</span>
       <h2 class="lesson-phrase" id="lessonPhrase">Loading today's phrase…</h2>
       <p class="lesson-meaning" id="lessonMeaning"></p>
@@ -59,7 +89,7 @@
 
   <section class="repeat-section">
     <h3>Now it's your turn</h3>
-    <p class="repeat-hint">Say the phrase out loud 3 times. Really move your mouth — don't just whisper it in your head.</p>
+    <p class="repeat-hint">Say the phrase out loud 3 times. Really move your mouth — don't just whisper it.</p>
 
     <div class="repeat-tracker" id="repeatTracker">
       <button class="repeat-dot" data-rep="1" type="button" aria-label="Mark repeat 1 done"></button>
@@ -72,15 +102,15 @@
   </section>
 
   <section class="archive-section">
-    <h3>Browse past phrases</h3>
-    <p class="archive-hint">Missed a day, or want to review? Pick any past lesson below.</p>
+    <h3>Past phrases</h3>
+    <p class="archive-hint">Missed a day, or want to review? Pick any past lesson.</p>
     <div class="archive-grid" id="archiveGrid"></div>
   </section>
 
 </main>
 
 <footer class="page-footer">
-  <p>Built for real ears, not textbooks. New phrase daily.</p>
+  <p>Built for real ears. Not for textbooks.</p>
 </footer>
 
 <script src="lessons.js"></script>
