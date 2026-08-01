@@ -11,6 +11,7 @@
 </head>
 <body>
 
+<!-- background decoration -->
 <div class="bg-shapes" aria-hidden="true">
   <span class="shape shape-1"></span>
   <span class="shape shape-2"></span>
@@ -27,10 +28,31 @@
   <span class="fw fw-6">lowkey</span>
 </div>
 
-<header class="topbar">
-  <div class="brand">
+<!-- SPEAK-O-METER: top wave bar, tracks today's practice -->
+<div class="speak-o-meter" id="speakOMeter" aria-hidden="true">
+  <svg class="wave-svg" viewBox="0 0 1200 40" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%"  stop-color="#FF3D8B"/>
+        <stop offset="50%" stop-color="#FFB4D1"/>
+        <stop offset="100%" stop-color="#FF3D8B"/>
+      </linearGradient>
+    </defs>
+    <!-- static baseline wave (dim) -->
+    <path class="wave-base" d="M 0 20 Q 50 5, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20" fill="none" stroke="rgba(255,180,209,0.15)" stroke-width="2"/>
+    <!-- active fill wave, width driven by vibe -->
+    <path class="wave-active" id="waveActive" d="M 0 20 Q 50 5, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20" fill="none" stroke="url(#waveGrad)" stroke-width="3" stroke-linecap="round" stroke-dasharray="1200" stroke-dashoffset="1200"/>
+  </svg>
+  <div class="vibe-label">
+    <span class="vibe-text" id="vibeText">vibe: 0</span>
+  </div>
+</div>
+
+<!-- ======= LEFT-ALIGNED MAGAZINE HEADER ======= -->
+<header class="masthead">
+  <div class="masthead-top">
     <span class="brand-mark" aria-hidden="true">
-      <svg viewBox="0 0 40 40" width="32" height="32">
+      <svg viewBox="0 0 40 40" width="30" height="30">
         <defs>
           <linearGradient id="lipGrad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#FF3D8B"/>
@@ -42,37 +64,32 @@
       </svg>
     </span>
     <span class="brand-name">Daily Speak</span>
+    <span class="masthead-divider">·</span>
+    <span class="issue-num" id="issueNum">issue #001</span>
+    <button class="past-toggle" id="pastToggle" type="button">past ↗</button>
   </div>
 
-  <div class="topbar-right">
-    <button class="archive-toggle" id="archiveToggle" type="button">
-      <span>Past</span>
-      <span class="archive-arrow">▾</span>
-    </button>
-    <div class="streak-pill" id="streakPill">
-      <span class="streak-flame">🔥</span>
-      <span id="streakCount">0</span>
+  <div class="masthead-headline">
+    <div class="date-block">
+      <span class="date-day" id="dateDay">SAT</span>
+      <span class="date-num" id="dateNum">01</span>
+      <span class="date-mo" id="dateMo">AUG</span>
+    </div>
+    <div class="mood-block">
+      <span class="mood-label">today's mood</span>
+      <span class="mood-quote" id="moodQuote">no cap fr fr</span>
     </div>
   </div>
 </header>
 
+<!-- ======= MAIN LESSON ======= -->
 <main class="page">
 
-  <section class="hero">
-    <p class="eyebrow" id="todayDate">Today's practice</p>
-    <h1>Sound like you <em>mean it.</em></h1>
-    <p class="hero-sub">Real clip. Real transcript. Say it like they say it.</p>
-  </section>
-
-  <!-- MAIN CONTENT: video + transcript + highlights -->
   <section class="lesson">
 
-    <div class="lesson-header">
-      <div class="scene-tag">
-        <span class="scene-label">Scene</span>
-        <span class="scene-text" id="sceneText"></span>
-      </div>
-      <div class="channel-badge" id="channelBadge"></div>
+    <div class="lesson-meta">
+      <span class="scene-line" id="sceneText"></span>
+      <span class="channel-badge" id="channelBadge"></span>
     </div>
 
     <div class="lesson-body">
@@ -80,41 +97,35 @@
       <!-- LEFT: video -->
       <div class="video-column">
         <div class="video-frame" id="videoFrame"></div>
+        <p class="video-hint">▸ click any line on the right to jump the video</p>
       </div>
 
-      <!-- RIGHT: transcript -->
+      <!-- RIGHT: syncing transcript -->
       <div class="transcript-column">
-        <p class="section-label">Transcript</p>
+        <div class="transcript-head">
+          <span class="section-label">live transcript</span>
+          <span class="sync-dot" id="syncDot" title="synced with video"></span>
+        </div>
         <div class="transcript" id="transcript"></div>
       </div>
 
     </div>
 
-    <!-- Below: highlighted phrases -->
+    <!-- Highlighted phrases -->
+    <div class="highlights-head">
+      <span class="section-label">phrases to steal</span>
+    </div>
     <div class="highlights" id="highlights"></div>
 
   </section>
 
 </main>
 
-<!-- Floating practice widget (bottom right) -->
-<div class="practice-widget" id="practiceWidget">
-  <div class="practice-widget-inner">
-    <p class="pw-title">Say it out loud</p>
-    <div class="pw-dots" id="repeatTracker">
-      <button class="repeat-dot" data-rep="1" type="button" aria-label="Repeat 1"></button>
-      <button class="repeat-dot" data-rep="2" type="button" aria-label="Repeat 2"></button>
-      <button class="repeat-dot" data-rep="3" type="button" aria-label="Repeat 3"></button>
-    </div>
-    <button class="checkin-btn-mini" id="checkinBtn" type="button">Done today ✓</button>
-  </div>
-</div>
-
-<!-- Archive drawer (hidden by default) -->
+<!-- Archive drawer -->
 <div class="archive-drawer" id="archiveDrawer" aria-hidden="true">
   <div class="archive-drawer-inner">
     <div class="archive-drawer-head">
-      <h3>Past lessons</h3>
+      <h3>past issues</h3>
       <button class="archive-close" id="archiveClose" type="button" aria-label="Close">✕</button>
     </div>
     <div class="archive-list" id="archiveList"></div>
@@ -122,9 +133,11 @@
 </div>
 
 <footer class="page-footer">
-  <p>Built for real ears. Not for textbooks.</p>
+  <p>built for real ears. not for textbooks.</p>
 </footer>
 
+<!-- YouTube IFrame API -->
+<script src="https://www.youtube.com/iframe_api"></script>
 <script src="lessons.js"></script>
 <script src="script.js"></script>
 </body>
