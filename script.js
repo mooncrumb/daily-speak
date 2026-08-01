@@ -1,20 +1,10 @@
-// Daily Speak — main logic (with YouTube sync + speak-o-meter)
+// Daily Speak — main logic
 
 const STORAGE_KEY = "dailySpeak";
 
-/* ---------- storage ---------- */
-
-function getToday() {
-  return new Date().toISOString().slice(0, 10);
-}
-
-function daysSinceEpoch() {
-  return Math.floor(new Date().getTime() / (1000 * 60 * 60 * 24));
-}
-
-function getTodayLessonIndex() {
-  return daysSinceEpoch() % LESSONS.length;
-}
+function getToday() { return new Date().toISOString().slice(0, 10); }
+function daysSinceEpoch() { return Math.floor(new Date().getTime() / (1000 * 60 * 60 * 24)); }
+function getTodayLessonIndex() { return daysSinceEpoch() % LESSONS.length; }
 
 function loadState() {
   try {
@@ -34,7 +24,6 @@ function saveState(state) {
 }
 
 let state = loadState();
-// reset vibe daily
 if (state.vibeDate !== getToday()) {
   state.vibe = 0;
   state.vibeDate = getToday();
@@ -45,21 +34,18 @@ if (state.vibeDate !== getToday()) {
 
 function renderMasthead() {
   const d = new Date();
-  const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
-  const mos  = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-
+  const days = ["SUN","MON","TUE","WED","THU","FRI","SAT"];
+  const mos  = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
   document.getElementById("dateDay").textContent = days[d.getDay()];
   document.getElementById("dateNum").textContent = String(d.getDate()).padStart(2, "0");
   document.getElementById("dateMo").textContent  = mos[d.getMonth()];
-
   const slangIdx = daysSinceEpoch() % DAILY_SLANG.length;
   document.getElementById("moodQuote").textContent = DAILY_SLANG[slangIdx];
-
   const issueNum = String(getTodayLessonIndex() + 1).padStart(3, "0");
   document.getElementById("issueNum").textContent = "issue #" + issueNum;
 }
 
-/* ---------- speak-o-meter ---------- */
+/* ---------- vibe meter ---------- */
 
 const MAX_VIBE = 100;
 
@@ -80,21 +66,16 @@ function addVibe(amount) {
   if (state.vibe >= MAX_VIBE) burstConfetti();
 }
 
-// tiny confetti burst when vibe maxes out
 function burstConfetti() {
-  const meter = document.getElementById("speakOMeter");
-  if (!meter) return;
   for (let i = 0; i < 14; i++) {
     const dot = document.createElement("span");
     dot.style.cssText = `
-      position: fixed;
-      top: 20px;
+      position: fixed; top: 20px;
       left: ${20 + Math.random() * (window.innerWidth - 40)}px;
       width: 6px; height: 6px;
       background: hsl(${330 + Math.random() * 30}, 90%, ${55 + Math.random() * 20}%);
       border-radius: 50%;
-      pointer-events: none;
-      z-index: 100;
+      pointer-events: none; z-index: 100;
       transition: transform 1.2s ease-out, opacity 1.2s ease-out;
     `;
     document.body.appendChild(dot);
@@ -113,7 +94,6 @@ let syncInterval = null;
 let currentLesson = null;
 
 function onYouTubeIframeAPIReady() {
-  // called by YouTube API script
   if (currentLesson) buildPlayer(currentLesson.youtubeId);
 }
 window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
@@ -123,28 +103,17 @@ function buildPlayer(youtubeId) {
   frame.innerHTML = '<div id="ytPlayerHost"></div>';
   ytPlayer = new YT.Player("ytPlayerHost", {
     videoId: youtubeId,
-    playerVars: {
-      rel: 0,
-      modestbranding: 1,
-      playsinline: 1
-    },
+    playerVars: { rel: 0, modestbranding: 1, playsinline: 1 },
     events: {
-      onReady: onPlayerReady,
+      onReady: () => {},
       onStateChange: onPlayerStateChange
     }
   });
 }
 
-function onPlayerReady() {
-  // ready — nothing needed
-}
-
 function onPlayerStateChange(e) {
-  if (e.data === YT.PlayerState.PLAYING) {
-    startSync();
-  } else {
-    stopSync();
-  }
+  if (e.data === YT.PlayerState.PLAYING) startSync();
+  else stopSync();
 }
 
 function startSync() {
@@ -161,7 +130,6 @@ function updateActiveLine() {
   const t = ytPlayer.getCurrentTime();
   const lines = currentLesson.transcript;
 
-  // find last line whose time <= current time
   let activeIdx = -1;
   for (let i = 0; i < lines.length; i++) {
     if (lines[i].t <= t) activeIdx = i;
@@ -170,12 +138,12 @@ function updateActiveLine() {
   if (activeIdx < 0) return;
 
   const container = document.getElementById("transcript");
+  if (!container) return;
   const els = container.querySelectorAll(".tx-line");
   els.forEach((el, i) => {
     if (i === activeIdx) {
       if (!el.classList.contains("active")) {
         el.classList.add("active");
-        // scroll into view within container
         const cRect = container.getBoundingClientRect();
         const eRect = el.getBoundingClientRect();
         if (eRect.top < cRect.top + 20 || eRect.bottom > cRect.bottom - 20) {
@@ -188,7 +156,7 @@ function updateActiveLine() {
   });
 }
 
-/* ---------- transcript rendering ---------- */
+/* ---------- transcript ---------- */
 
 function fmtTime(sec) {
   const m = Math.floor(sec / 60);
@@ -210,7 +178,6 @@ function highlightText(text, phrases) {
 function renderTranscript(lesson) {
   const container = document.getElementById("transcript");
   const phrases = lesson.highlights.map(h => h.phrase);
-
   container.innerHTML = lesson.transcript.map((line, i) => `
     <div class="tx-line" data-time="${line.t}" data-i="${i}">
       <span class="tx-time">${fmtTime(line.t)}</span>
@@ -229,41 +196,34 @@ function renderTranscript(lesson) {
   });
 }
 
-/* ---------- highlights cards ---------- */
+/* ---------- phrases (magazine layout) ---------- */
+
+// which size class for each index in a set of 6 items
+const PHRASE_LAYOUT = ["feature", "regular", "regular", "wide", "narrow", "narrow"];
 
 function renderHighlights(lesson) {
   const el = document.getElementById("highlights");
+  if (!el) return;
   const today = getToday();
   const saidToday = state.said[today] || [];
 
   el.innerHTML = lesson.highlights.map((h, i) => {
     const isSaid = saidToday.includes(i);
+    const sizeClass = PHRASE_LAYOUT[i % PHRASE_LAYOUT.length];
     return `
-      <div class="highlight-card" data-idx="${i}">
-        <h3 class="highlight-phrase">${h.phrase}</h3>
-        <p class="highlight-note">${h.note}</p>
-        <div class="highlight-sound">${h.sound}</div>
-        <div class="card-actions">
-          <button class="speak-btn-mini" type="button" data-phrase="${encodeURIComponent(h.phrase)}">
-            🔊 hear it
-          </button>
-          <button class="said-btn ${isSaid ? "done" : ""}" type="button" data-idx="${i}">
-            ${isSaid ? "✓ said it" : "i said it"}
-          </button>
-        </div>
+      <div class="phrase-item ${sizeClass}" data-idx="${i}">
+        <button class="said-badge ${isSaid ? "done" : ""}" type="button" data-idx="${i}" aria-label="Mark as said">
+          ${isSaid ? "✓" : "+"}
+        </button>
+        <span class="phrase-eyebrow">phrase no. ${String(i + 1).padStart(2, "0")}</span>
+        <div class="phrase-text">"${h.phrase}"</div>
+        <p class="phrase-note">${h.note}</p>
+        <div class="phrase-sound">${h.sound}</div>
       </div>
     `;
   }).join("");
 
-  el.querySelectorAll(".speak-btn-mini").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const phrase = decodeURIComponent(btn.dataset.phrase);
-      speakPhrase(phrase);
-    });
-  });
-
-  el.querySelectorAll(".said-btn").forEach(btn => {
+  el.querySelectorAll(".said-badge").forEach(btn => {
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
       const idx = parseInt(btn.dataset.idx, 10);
@@ -279,18 +239,17 @@ function toggleSaid(idx, btnEl) {
   if (pos === -1) {
     state.said[today].push(idx);
     btnEl.classList.add("done");
-    btnEl.innerHTML = "✓ said it";
+    btnEl.innerHTML = "✓";
     addVibe(30);
     triggerKiss(btnEl);
   } else {
     state.said[today].splice(pos, 1);
     btnEl.classList.remove("done");
-    btnEl.innerHTML = "i said it";
+    btnEl.innerHTML = "+";
   }
   saveState(state);
 }
 
-// a small pink kiss print pops out when you tap "i said it"
 function triggerKiss(anchorEl) {
   const rect = anchorEl.getBoundingClientRect();
   const kiss = document.createElement("div");
@@ -313,21 +272,6 @@ function triggerKiss(anchorEl) {
   setTimeout(() => kiss.remove(), 1200);
 }
 
-/* ---------- speech synthesis ---------- */
-
-function speakPhrase(text) {
-  if (!("speechSynthesis" in window)) return;
-  window.speechSynthesis.cancel();
-  const utter = new SpeechSynthesisUtterance(text);
-  utter.lang = "en-US";
-  utter.rate = 0.92;
-  const voices = window.speechSynthesis.getVoices();
-  const usVoice = voices.find(v => v.lang === "en-US");
-  if (usVoice) utter.voice = usVoice;
-  window.speechSynthesis.speak(utter);
-  addVibe(6);
-}
-
 /* ---------- lesson loading ---------- */
 
 function renderLesson(lesson) {
@@ -336,45 +280,36 @@ function renderLesson(lesson) {
   document.getElementById("channelBadge").textContent = "@" + lesson.channel;
   renderTranscript(lesson);
   renderHighlights(lesson);
-
-  // build player (or wait for API)
   if (window.YT && window.YT.Player) {
     buildPlayer(lesson.youtubeId);
   }
 }
 
-/* ---------- archive ---------- */
+/* ---------- TAB SWITCHING ---------- */
 
-function renderArchive() {
-  const list = document.getElementById("archiveList");
-  list.innerHTML = "";
-  const todayIdx = getTodayLessonIndex();
-
-  LESSONS.forEach((lesson, i) => {
-    const item = document.createElement("button");
-    item.className = "archive-item";
-    item.type = "button";
-    item.innerHTML = `
-      <div class="archive-day">${i === todayIdx ? "Today" : "Issue #" + String(i + 1).padStart(3, "0")}</div>
-      <div class="archive-scene">${lesson.scene}</div>
-    `;
-    item.addEventListener("click", () => {
-      renderLesson(lesson);
-      closeArchive();
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-    list.appendChild(item);
+function switchTab(tabName) {
+  document.querySelectorAll(".tab").forEach(t => {
+    t.classList.toggle("active", t.dataset.tab === tabName);
   });
+  document.querySelectorAll(".panel").forEach(p => {
+    p.classList.toggle("active", p.dataset.panel === tabName);
+  });
+  // remember which tab you were on
+  try { localStorage.setItem("dailySpeak.currentTab", tabName); } catch (e) {}
+  // update URL hash so refresh keeps you on the same tab
+  history.replaceState(null, "", "#" + tabName);
 }
 
-function openArchive() {
-  document.getElementById("archiveDrawer").classList.add("open");
-  document.getElementById("archiveDrawer").setAttribute("aria-hidden", "false");
-}
-
-function closeArchive() {
-  document.getElementById("archiveDrawer").classList.remove("open");
-  document.getElementById("archiveDrawer").setAttribute("aria-hidden", "true");
+function getInitialTab() {
+  // priority: URL hash → localStorage → default 'speak'
+  const hash = window.location.hash.replace("#", "");
+  const valid = ["speak", "wordbook", "notes", "calendar", "finance", "vibe"];
+  if (valid.includes(hash)) return hash;
+  try {
+    const saved = localStorage.getItem("dailySpeak.currentTab");
+    if (valid.includes(saved)) return saved;
+  } catch (e) {}
+  return "speak";
 }
 
 /* ---------- init ---------- */
@@ -385,14 +320,13 @@ function init() {
 
   const todayLesson = LESSONS[getTodayLessonIndex()];
   renderLesson(todayLesson);
-  renderArchive();
 
-  document.getElementById("pastToggle").addEventListener("click", openArchive);
-  document.getElementById("archiveClose").addEventListener("click", closeArchive);
+  document.querySelectorAll(".tab").forEach(t => {
+    t.addEventListener("click", () => switchTab(t.dataset.tab));
+  });
 
-  if ("speechSynthesis" in window) {
-    window.speechSynthesis.onvoiceschanged = () => {};
-  }
+  const initTab = getInitialTab();
+  if (initTab !== "speak") switchTab(initTab);
 }
 
 document.addEventListener("DOMContentLoaded", init);

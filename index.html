@@ -11,7 +11,6 @@
 </head>
 <body>
 
-<!-- background decoration -->
 <div class="bg-shapes" aria-hidden="true">
   <span class="shape shape-1"></span>
   <span class="shape shape-2"></span>
@@ -28,7 +27,6 @@
   <span class="fw fw-6">lowkey</span>
 </div>
 
-<!-- SPEAK-O-METER: top wave bar, tracks today's practice -->
 <div class="speak-o-meter" id="speakOMeter" aria-hidden="true">
   <svg class="wave-svg" viewBox="0 0 1200 40" preserveAspectRatio="none">
     <defs>
@@ -38,9 +36,7 @@
         <stop offset="100%" stop-color="#FF3D8B"/>
       </linearGradient>
     </defs>
-    <!-- static baseline wave (dim) -->
     <path class="wave-base" d="M 0 20 Q 50 5, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20" fill="none" stroke="rgba(255,180,209,0.15)" stroke-width="2"/>
-    <!-- active fill wave, width driven by vibe -->
     <path class="wave-active" id="waveActive" d="M 0 20 Q 50 5, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20" fill="none" stroke="url(#waveGrad)" stroke-width="3" stroke-linecap="round" stroke-dasharray="1200" stroke-dashoffset="1200"/>
   </svg>
   <div class="vibe-label">
@@ -48,7 +44,7 @@
   </div>
 </div>
 
-<!-- ======= LEFT-ALIGNED MAGAZINE HEADER ======= -->
+<!-- ======= MASTHEAD ======= -->
 <header class="masthead">
   <div class="masthead-top">
     <span class="brand-mark" aria-hidden="true">
@@ -63,10 +59,9 @@
         <path d="M20 12 C 18 14, 18 16, 20 18 C 22 16, 22 14, 20 12 Z" fill="#0A0A0A" opacity="0.35"/>
       </svg>
     </span>
-    <span class="brand-name">Daily Speak</span>
+    <span class="brand-name">the Daily</span>
     <span class="masthead-divider">·</span>
     <span class="issue-num" id="issueNum">issue #001</span>
-    <button class="past-toggle" id="pastToggle" type="button">past ↗</button>
   </div>
 
   <div class="masthead-headline">
@@ -80,63 +75,150 @@
       <span class="mood-quote" id="moodQuote">no cap fr fr</span>
     </div>
   </div>
+
+  <!-- ======= TAB NAVIGATION ======= -->
+  <nav class="tab-nav" id="tabNav">
+    <button class="tab active" data-tab="speak" type="button">
+      <span class="tab-num">01</span>
+      <span class="tab-name">Speak</span>
+    </button>
+    <button class="tab" data-tab="wordbook" type="button">
+      <span class="tab-num">02</span>
+      <span class="tab-name">Wordbook</span>
+    </button>
+    <button class="tab" data-tab="notes" type="button">
+      <span class="tab-num">03</span>
+      <span class="tab-name">Notes</span>
+    </button>
+    <button class="tab" data-tab="calendar" type="button">
+      <span class="tab-num">04</span>
+      <span class="tab-name">Calendar</span>
+    </button>
+    <button class="tab" data-tab="finance" type="button">
+      <span class="tab-num">05</span>
+      <span class="tab-name">Finance</span>
+    </button>
+    <button class="tab" data-tab="vibe" type="button">
+      <span class="tab-num">06</span>
+      <span class="tab-name">Vibe</span>
+    </button>
+  </nav>
 </header>
 
-<!-- ======= MAIN LESSON ======= -->
 <main class="page">
 
-  <section class="lesson">
-
-    <div class="lesson-meta">
-      <span class="scene-line" id="sceneText"></span>
-      <span class="channel-badge" id="channelBadge"></span>
-    </div>
-
-    <div class="lesson-body">
-
-      <!-- LEFT: video -->
-      <div class="video-column">
-        <div class="video-frame" id="videoFrame"></div>
-        <p class="video-hint">▸ click any line on the right to jump the video</p>
+  <!-- ======= SPEAK PANEL ======= -->
+  <section class="panel active" data-panel="speak">
+    <div class="lesson">
+      <div class="lesson-meta">
+        <span class="scene-line" id="sceneText"></span>
+        <span class="channel-badge" id="channelBadge"></span>
       </div>
 
-      <!-- RIGHT: syncing transcript -->
-      <div class="transcript-column">
-        <div class="transcript-head">
-          <span class="section-label">live transcript</span>
-          <span class="sync-dot" id="syncDot" title="synced with video"></span>
+      <div class="lesson-body">
+        <div class="video-column">
+          <div class="video-frame" id="videoFrame"></div>
+          <p class="video-hint">▸ click any line on the right to jump the video</p>
         </div>
-        <div class="transcript" id="transcript"></div>
+
+        <div class="transcript-column">
+          <div class="transcript-head">
+            <span class="section-label">live transcript</span>
+            <span class="sync-dot" id="syncDot" title="synced with video"></span>
+          </div>
+          <div class="transcript" id="transcript"></div>
+        </div>
       </div>
 
+      <!-- MAGAZINE-STYLE PHRASES SECTION -->
+      <div class="phrases-section">
+        <div class="phrases-head">
+          <span class="phrases-num">no. 03</span>
+          <h2 class="phrases-title">phrases <em>to steal.</em></h2>
+          <p class="phrases-sub">the good stuff, pulled from today's transcript</p>
+        </div>
+        <div class="phrases-grid" id="highlights"></div>
+      </div>
     </div>
+  </section>
 
-    <!-- Highlighted phrases -->
-    <div class="highlights-head">
-      <span class="section-label">phrases to steal</span>
+  <!-- ======= WORDBOOK PANEL ======= -->
+  <section class="panel" data-panel="wordbook">
+    <div class="coming-soon">
+      <span class="cs-num">02</span>
+      <h2 class="cs-title">Wordbook <em>coming soon</em></h2>
+      <p class="cs-desc">a growing library of IELTS &amp; TOEFL words — 5 new ones every day, no need to lift a finger.</p>
+      <div class="cs-tags">
+        <span class="cs-tag">auto-daily</span>
+        <span class="cs-tag">ielts</span>
+        <span class="cs-tag">toefl</span>
+        <span class="cs-tag">audio</span>
+      </div>
     </div>
-    <div class="highlights" id="highlights"></div>
+  </section>
 
+  <!-- ======= NOTES PANEL ======= -->
+  <section class="panel" data-panel="notes">
+    <div class="coming-soon">
+      <span class="cs-num">03</span>
+      <h2 class="cs-title">Notes <em>coming soon</em></h2>
+      <p class="cs-desc">a personal scratchpad — thoughts, quotes, things you don't want to forget. quick to write, easy to find.</p>
+      <div class="cs-tags">
+        <span class="cs-tag">journal</span>
+        <span class="cs-tag">quick-add</span>
+        <span class="cs-tag">tagged</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= CALENDAR PANEL ======= -->
+  <section class="panel" data-panel="calendar">
+    <div class="coming-soon">
+      <span class="cs-num">04</span>
+      <h2 class="cs-title">Calendar <em>coming soon</em></h2>
+      <p class="cs-desc">plans, to-dos, countdowns to the things you're waiting for. add once, watch the days tick down.</p>
+      <div class="cs-tags">
+        <span class="cs-tag">plans</span>
+        <span class="cs-tag">countdown</span>
+        <span class="cs-tag">deadlines</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= FINANCE PANEL ======= -->
+  <section class="panel" data-panel="finance">
+    <div class="coming-soon">
+      <span class="cs-num">05</span>
+      <h2 class="cs-title">Finance <em>coming soon</em></h2>
+      <p class="cs-desc">daily stock snapshots, market news, and short finance concepts to make you smarter about money.</p>
+      <div class="cs-tags">
+        <span class="cs-tag">stocks</span>
+        <span class="cs-tag">concepts</span>
+        <span class="cs-tag">smart-girl-era</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= VIBE PANEL ======= -->
+  <section class="panel" data-panel="vibe">
+    <div class="coming-soon">
+      <span class="cs-num">06</span>
+      <h2 class="cs-title">Vibe <em>coming soon</em></h2>
+      <p class="cs-desc">a daily affirmation, a soft push, something to lock in on. self-care that doesn't feel like homework.</p>
+      <div class="cs-tags">
+        <span class="cs-tag">affirmations</span>
+        <span class="cs-tag">book quotes</span>
+        <span class="cs-tag">habits</span>
+      </div>
+    </div>
   </section>
 
 </main>
-
-<!-- Archive drawer -->
-<div class="archive-drawer" id="archiveDrawer" aria-hidden="true">
-  <div class="archive-drawer-inner">
-    <div class="archive-drawer-head">
-      <h3>past issues</h3>
-      <button class="archive-close" id="archiveClose" type="button" aria-label="Close">✕</button>
-    </div>
-    <div class="archive-list" id="archiveList"></div>
-  </div>
-</div>
 
 <footer class="page-footer">
   <p>built for real ears. not for textbooks.</p>
 </footer>
 
-<!-- YouTube IFrame API -->
 <script src="https://www.youtube.com/iframe_api"></script>
 <script src="lessons.js"></script>
 <script src="script.js"></script>

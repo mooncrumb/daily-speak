@@ -1,15 +1,8 @@
 /*
   LESSONS LIBRARY — Daily Speak
   ==============================
-  Each transcript line has a `t` (time in seconds) so the video and
-  captions stay in sync. Highlighted phrases are the ones you're
-  learning today — they get pink glow in the transcript.
-
-  To find the seconds for a line, look at the timestamp in your
-  original captions (e.g. "1:23" = 83 seconds). Just count
-  minutes * 60 + seconds.
-
-  DAILY SLANG POOL — for the header rotating quote.
+  Each transcript line has a `t` (time in seconds).
+  Highlighted phrases get pink glow.
 */
 
 const DAILY_SLANG = [
