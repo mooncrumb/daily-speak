@@ -6,7 +6,7 @@
 <title>Daily Speak — sound like you mean it</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800;900&family=Bodoni+Moda:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800;900&family=Bodoni+Moda:ital,wght@0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -18,7 +18,6 @@
   <span class="shape shape-4"></span>
 </div>
 
-<!-- floating slang keywords in the background -->
 <div class="floating-words" aria-hidden="true">
   <span class="fw fw-1">no cap</span>
   <span class="fw fw-2">slay</span>
@@ -31,7 +30,6 @@
 <header class="topbar">
   <div class="brand">
     <span class="brand-mark" aria-hidden="true">
-      <!-- custom sweet-edgy logo: kiss mark shape -->
       <svg viewBox="0 0 40 40" width="32" height="32">
         <defs>
           <linearGradient id="lipGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -45,69 +43,83 @@
     </span>
     <span class="brand-name">Daily Speak</span>
   </div>
-  <div class="streak-pill" id="streakPill">
-    <span class="streak-flame">🔥</span>
-    <span id="streakCount">0</span>
-    <span class="streak-label">day streak</span>
+
+  <div class="topbar-right">
+    <button class="archive-toggle" id="archiveToggle" type="button">
+      <span>Past</span>
+      <span class="archive-arrow">▾</span>
+    </button>
+    <div class="streak-pill" id="streakPill">
+      <span class="streak-flame">🔥</span>
+      <span id="streakCount">0</span>
+    </div>
   </div>
 </header>
 
 <main class="page">
 
   <section class="hero">
-    <p class="eyebrow">Today's practice · <span id="todayDate"></span></p>
-    <h1>Stop learning English.<br>Start <em>sounding</em> American.</h1>
-    <p class="hero-sub">One real clip from a native speaker, every day. Watch it, say it out loud, make it feel normal in your mouth.</p>
+    <p class="eyebrow" id="todayDate">Today's practice</p>
+    <h1>Sound like you <em>mean it.</em></h1>
+    <p class="hero-sub">Real clip. Real transcript. Say it like they say it.</p>
   </section>
 
-  <!-- SPLIT LAYOUT: left video, right lesson text -->
-  <section class="lesson-split" id="lessonCard">
-    <div class="lesson-left">
-      <div class="video-frame" id="videoFrame">
-        <!-- YouTube iframe injected here -->
+  <!-- MAIN CONTENT: video + transcript + highlights -->
+  <section class="lesson">
+
+    <div class="lesson-header">
+      <div class="scene-tag">
+        <span class="scene-label">Scene</span>
+        <span class="scene-text" id="sceneText"></span>
+      </div>
+      <div class="channel-badge" id="channelBadge"></div>
+    </div>
+
+    <div class="lesson-body">
+
+      <!-- LEFT: video -->
+      <div class="video-column">
+        <div class="video-frame" id="videoFrame"></div>
       </div>
 
-      <div class="tag-cloud">
-        <span class="tag-mini">#realtalk</span>
-        <span class="tag-mini">#slang</span>
-        <span class="tag-mini">#nativevibes</span>
+      <!-- RIGHT: transcript -->
+      <div class="transcript-column">
+        <p class="section-label">Transcript</p>
+        <div class="transcript" id="transcript"></div>
       </div>
+
     </div>
 
-    <div class="lesson-right">
-      <span class="tag" id="lessonTag">Slang of the day</span>
-      <h2 class="lesson-phrase" id="lessonPhrase">Loading today's phrase…</h2>
-      <p class="lesson-meaning" id="lessonMeaning"></p>
+    <!-- Below: highlighted phrases -->
+    <div class="highlights" id="highlights"></div>
 
-      <div class="lesson-example" id="lessonExample"></div>
-
-      <button class="speak-btn" id="speakBtn" type="button">
-        <span class="speak-icon">🔊</span> Hear it said out loud
-      </button>
-    </div>
-  </section>
-
-  <section class="repeat-section">
-    <h3>Now it's your turn</h3>
-    <p class="repeat-hint">Say the phrase out loud 3 times. Really move your mouth — don't just whisper it.</p>
-
-    <div class="repeat-tracker" id="repeatTracker">
-      <button class="repeat-dot" data-rep="1" type="button" aria-label="Mark repeat 1 done"></button>
-      <button class="repeat-dot" data-rep="2" type="button" aria-label="Mark repeat 2 done"></button>
-      <button class="repeat-dot" data-rep="3" type="button" aria-label="Mark repeat 3 done"></button>
-    </div>
-
-    <button class="checkin-btn" id="checkinBtn" type="button">I practiced today ✓</button>
-    <p class="checkin-msg" id="checkinMsg"></p>
-  </section>
-
-  <section class="archive-section">
-    <h3>Past phrases</h3>
-    <p class="archive-hint">Missed a day, or want to review? Pick any past lesson.</p>
-    <div class="archive-grid" id="archiveGrid"></div>
   </section>
 
 </main>
+
+<!-- Floating practice widget (bottom right) -->
+<div class="practice-widget" id="practiceWidget">
+  <div class="practice-widget-inner">
+    <p class="pw-title">Say it out loud</p>
+    <div class="pw-dots" id="repeatTracker">
+      <button class="repeat-dot" data-rep="1" type="button" aria-label="Repeat 1"></button>
+      <button class="repeat-dot" data-rep="2" type="button" aria-label="Repeat 2"></button>
+      <button class="repeat-dot" data-rep="3" type="button" aria-label="Repeat 3"></button>
+    </div>
+    <button class="checkin-btn-mini" id="checkinBtn" type="button">Done today ✓</button>
+  </div>
+</div>
+
+<!-- Archive drawer (hidden by default) -->
+<div class="archive-drawer" id="archiveDrawer" aria-hidden="true">
+  <div class="archive-drawer-inner">
+    <div class="archive-drawer-head">
+      <h3>Past lessons</h3>
+      <button class="archive-close" id="archiveClose" type="button" aria-label="Close">✕</button>
+    </div>
+    <div class="archive-list" id="archiveList"></div>
+  </div>
+</div>
 
 <footer class="page-footer">
   <p>Built for real ears. Not for textbooks.</p>

@@ -1,18 +1,13 @@
-// ============================================
-// DAILY SPEAK — main logic
-// Content lives in lessons.js (LESSONS array)
-// ============================================
+// Daily Speak — main logic
 
 const STORAGE_KEY = "dailySpeak";
 
 function getToday() {
-  const d = new Date();
-  return d.toISOString().slice(0, 10); // YYYY-MM-DD
+  return new Date().toISOString().slice(0, 10);
 }
 
 function daysSinceEpoch() {
-  const d = new Date();
-  return Math.floor(d.getTime() / (1000 * 60 * 60 * 24));
+  return Math.floor(new Date().getTime() / (1000 * 60 * 60 * 24));
 }
 
 function getTodayLessonIndex() {
@@ -32,9 +27,7 @@ function loadState() {
 function saveState(state) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  } catch (e) {
-    // storage unavailable, fail silently
-  }
+  } catch (e) {}
 }
 
 let state = loadState();
@@ -42,7 +35,8 @@ let state = loadState();
 function renderDate() {
   const el = document.getElementById("todayDate");
   const opts = { weekday: "long", month: "long", day: "numeric" };
-  el.textContent = new Date().toLocaleDateString("en-US", opts);
+  const dateStr = new Date().toLocaleDateString("en-US", opts);
+  el.textContent = "Today · " + dateStr;
 }
 
 function renderStreak() {
@@ -60,12 +54,45 @@ function embedVideo(youtubeId) {
     ></iframe>`;
 }
 
-function renderLesson(lesson) {
-  document.getElementById("lessonTag").textContent = lesson.tag + (lesson.channel ? " · " + lesson.channel : "");
-  document.getElementById("lessonPhrase").textContent = lesson.phrase;
-  document.getElementById("lessonMeaning").textContent = lesson.meaning;
-  document.getElementById("lessonExample").textContent = lesson.example;
-  embedVideo(lesson.youtubeId);
+// Highlight phrases inside transcript lines
+function renderTranscript(transcriptLines, highlights) {
+  const el = document.getElementById("transcript");
+  const phrases = highlights.map(h => h.phrase);
+
+  const highlighted = transcriptLines.map(line => {
+    let out = line;
+    // longest phrases first, so overlapping matches favor the longer one
+    const sorted = [...phrases].sort((a, b) => b.length - a.length);
+    sorted.forEach(phrase => {
+      const escaped = phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const re = new RegExp("(" + escaped + ")", "gi");
+      out = out.replace(re, '<span class="hl">$1</span>');
+    });
+    return `<p>${out}</p>`;
+  }).join("");
+
+  el.innerHTML = highlighted;
+}
+
+function renderHighlights(highlights) {
+  const el = document.getElementById("highlights");
+  el.innerHTML = highlights.map((h, i) => `
+    <div class="highlight-card">
+      <h3 class="highlight-phrase">${h.phrase}</h3>
+      <p class="highlight-note">${h.note}</p>
+      <div class="highlight-sound">${h.sound}</div>
+      <button class="speak-btn-mini" type="button" data-phrase="${encodeURIComponent(h.phrase)}">
+        🔊 Hear it
+      </button>
+    </div>
+  `).join("");
+
+  el.querySelectorAll(".speak-btn-mini").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const phrase = decodeURIComponent(btn.dataset.phrase);
+      speakPhrase(phrase);
+    });
+  });
 }
 
 function speakPhrase(text) {
@@ -83,12 +110,21 @@ function speakPhrase(text) {
   window.speechSynthesis.speak(utter);
 }
 
+function renderLesson(lesson) {
+  document.getElementById("sceneText").textContent = lesson.scene;
+  document.getElementById("channelBadge").textContent = "@" + lesson.channel;
+  embedVideo(lesson.youtubeId);
+  renderTranscript(lesson.transcript, lesson.highlights);
+  renderHighlights(lesson.highlights);
+}
+
+/* ---------- repeat tracker + check-in ---------- */
+
 function renderRepeatTracker() {
   const today = getToday();
   const todayReps = state.reps[today] || [];
   document.querySelectorAll(".repeat-dot").forEach(dot => {
-    const rep = dot.dataset.rep;
-    if (todayReps.includes(rep)) {
+    if (todayReps.includes(dot.dataset.rep)) {
       dot.classList.add("done");
     } else {
       dot.classList.remove("done");
@@ -100,11 +136,8 @@ function toggleRep(rep) {
   const today = getToday();
   if (!state.reps[today]) state.reps[today] = [];
   const idx = state.reps[today].indexOf(rep);
-  if (idx === -1) {
-    state.reps[today].push(rep);
-  } else {
-    state.reps[today].splice(idx, 1);
-  }
+  if (idx === -1) state.reps[today].push(rep);
+  else state.reps[today].splice(idx, 1);
   saveState(state);
   renderRepeatTracker();
 }
@@ -117,28 +150,21 @@ function doCheckin() {
   yesterday.setDate(yesterday.getDate() - 1);
   const yStr = yesterday.toISOString().slice(0, 10);
 
-  if (state.lastCheckin === yStr) {
-    state.streak += 1;
-  } else {
-    state.streak = 1;
-  }
+  state.streak = (state.lastCheckin === yStr) ? state.streak + 1 : 1;
   state.lastCheckin = today;
   saveState(state);
   renderStreak();
 
   const btn = document.getElementById("checkinBtn");
-  btn.textContent = "Nice work today! ✓";
+  btn.textContent = "Nice work ✓";
   btn.disabled = true;
-
-  const msg = document.getElementById("checkinMsg");
-  msg.textContent = state.streak === 1
-    ? "Day 1 in the books. See you tomorrow!"
-    : `${state.streak} days in a row. Keep it going!`;
 }
 
+/* ---------- archive drawer ---------- */
+
 function renderArchive() {
-  const grid = document.getElementById("archiveGrid");
-  grid.innerHTML = "";
+  const list = document.getElementById("archiveList");
+  list.innerHTML = "";
   const todayIdx = getTodayLessonIndex();
 
   LESSONS.forEach((lesson, i) => {
@@ -147,30 +173,37 @@ function renderArchive() {
     item.type = "button";
     item.innerHTML = `
       <div class="archive-day">${i === todayIdx ? "Today" : "Lesson " + (i + 1)}</div>
-      <div class="archive-phrase">${lesson.phrase}</div>
+      <div class="archive-scene">${lesson.scene}</div>
     `;
     item.addEventListener("click", () => {
       renderLesson(lesson);
+      closeArchive();
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
-    grid.appendChild(item);
+    list.appendChild(item);
   });
 }
+
+function openArchive() {
+  document.getElementById("archiveDrawer").classList.add("open");
+  document.getElementById("archiveDrawer").setAttribute("aria-hidden", "false");
+}
+
+function closeArchive() {
+  document.getElementById("archiveDrawer").classList.remove("open");
+  document.getElementById("archiveDrawer").setAttribute("aria-hidden", "true");
+}
+
+/* ---------- init ---------- */
 
 function init() {
   renderDate();
   renderStreak();
 
-  const todayIdx = getTodayLessonIndex();
-  const todayLesson = LESSONS[todayIdx];
+  const todayLesson = LESSONS[getTodayLessonIndex()];
   renderLesson(todayLesson);
   renderRepeatTracker();
   renderArchive();
-
-  document.getElementById("speakBtn").addEventListener("click", () => {
-    const phrase = document.getElementById("lessonPhrase").textContent;
-    speakPhrase(phrase);
-  });
 
   document.querySelectorAll(".repeat-dot").forEach(dot => {
     dot.addEventListener("click", () => toggleRep(dot.dataset.rep));
@@ -178,12 +211,14 @@ function init() {
 
   const checkinBtn = document.getElementById("checkinBtn");
   if (state.lastCheckin === getToday()) {
-    checkinBtn.textContent = "Nice work today! ✓";
+    checkinBtn.textContent = "Nice work ✓";
     checkinBtn.disabled = true;
   }
   checkinBtn.addEventListener("click", doCheckin);
 
-  // voices load async in some browsers
+  document.getElementById("archiveToggle").addEventListener("click", openArchive);
+  document.getElementById("archiveClose").addEventListener("click", closeArchive);
+
   if ("speechSynthesis" in window) {
     window.speechSynthesis.onvoiceschanged = () => {};
   }

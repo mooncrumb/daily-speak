@@ -1,76 +1,62 @@
 /*
-  LESSONS LIBRARY
-  ================
-  This is the only file you need to touch to add new content.
-  Each lesson is one object in the list below. Copy an existing
-  one, change the values, and add it to the array.
+  LESSONS LIBRARY — Daily Speak
+  ==============================
+  Each lesson = 1 video + full transcript excerpt + highlighted phrases.
 
-  HOW TO GET A YOUTUBE ID:
-  Open any YouTube video. The URL looks like:
-    https://www.youtube.com/watch?v=dQw4w9WgXcQ
-  The part after "v=" is the youtubeId. In this example: dQw4w9WgXcQ
+  Structure:
+  {
+    youtubeId: "...",              // YouTube video ID (from URL after v=)
+    channel: "creator name",       // who made the video
+    videoTitle: "...",             // for reference
+    scene: "one line about what's happening in this clip",
+    transcript: [                  // full transcript excerpt as an array of lines
+      "line 1",
+      "line 2",
+      ...
+    ],
+    highlights: [                  // phrases to focus on
+      {
+        phrase: "the exact phrase",
+        note: "short English note on when/how to say it",
+        sound: "pronunciation tip"
+      }
+    ]
+  }
 
-  The page automatically shows one lesson per day, cycling through
-  this list in order. Once you reach the end, it loops back to the
-  start. So you can always have content "ahead" of today just by
-  adding more entries — no need to match dates exactly.
+  To add a new lesson, copy an existing one and change the values.
+  The page auto-picks one lesson per day.
 */
 
 const LESSONS = [
   {
-    tag: "Slang of the day",
-    phrase: "I'm down for that.",
-    meaning: "Means \"I'm in / I agree / let's do it.\" Super common casual way to accept an invite or idea.",
-    example: "\u201cWanna grab tacos later?\u201d \u2014 \u201cYeah, I'm down for that.\u201d",
-    youtubeId: "1EPQm2fBGkI",
-    channel: "Rachel's English"
-  },
-  {
-    tag: "Slang of the day",
-    phrase: "That's a lot to unpack.",
-    meaning: "Used when something someone said is complicated, surprising, or has a lot going on emotionally.",
-    example: "\u201cShe said WHAT to him? Okay, that's a lot to unpack.\u201d",
-    youtubeId: "1EPQm2fBGkI",
-    channel: "RealLife English"
-  },
-  {
-    tag: "Slang of the day",
-    phrase: "No cap.",
-    meaning: "Means \"no lie / I'm serious.\" Used to emphasize that you're telling the truth, especially by younger speakers.",
-    example: "\u201cThis is the best burger in the city, no cap.\u201d",
-    youtubeId: "1EPQm2fBGkI",
-    channel: "Go Natural English"
-  },
-  {
-    tag: "Slang of the day",
-    phrase: "It is what it is.",
-    meaning: "A resigned way of accepting a situation you can't change. Very common, very American, very chill.",
-    example: "\u201cWe missed the flight. Oh well, it is what it is.\u201d",
-    youtubeId: "1EPQm2fBGkI",
-    channel: "Rachel's English"
-  },
-  {
-    tag: "Slang of the day",
-    phrase: "I could go for some coffee.",
-    meaning: "A soft, casual way to say you want something \u2014 more natural than \"I want.\"",
-    example: "\u201cLong day, huh?\u201d \u2014 \u201cYeah, I could go for some coffee.\u201d",
-    youtubeId: "1EPQm2fBGkI",
-    channel: "RealLife English"
-  },
-  {
-    tag: "Slang of the day",
-    phrase: "Let's play it by ear.",
-    meaning: "Means you'll decide what to do as things happen, instead of planning now.",
-    example: "\u201cWhat time should we meet?\u201d \u2014 \u201cLet's just play it by ear.\u201d",
-    youtubeId: "1EPQm2fBGkI",
-    channel: "Go Natural English"
-  },
-  {
-    tag: "Slang of the day",
-    phrase: "That hit different.",
-    meaning: "Used when something felt unusually good, powerful, or emotional \u2014 more than expected.",
-    example: "\u201cThat sunset hit different tonight.\u201d",
-    youtubeId: "1EPQm2fBGkI",
-    channel: "Rachel's English"
+    youtubeId: "Pz68t3RGeqI",
+    channel: "Sydney Serena",
+    videoTitle: "Fall vlog — Starbucks, getting ready, doing my nails",
+    scene: "A young American vlogger picking her outfit for the day.",
+    transcript: [
+      "I don't know what to wear. I think some color could be fun.",
+      "I've been trying to like be more fun.",
+      "I've been trying to have more color in my wardrobe.",
+      "Should I wear these heart earrings or my gold hoops?",
+      "I just feel like I always wear hoops and I want to switch it up.",
+      "I honestly can't. They are a staple for a reason."
+    ],
+    highlights: [
+      {
+        phrase: "switch it up",
+        note: "Casual way to say 'try something different' or 'change my usual thing'. Use it for outfits, food, routines, anything you always do the same way.",
+        sound: "'switch it' blends together — sounds like 'switchit up'."
+      },
+      {
+        phrase: "a staple for a reason",
+        note: "Something's a classic because it works. You say this when you try to change and end up back with the original.",
+        sound: "'staple' = STAY-pul. Say the phrase like one thought, no pause."
+      },
+      {
+        phrase: "I've been trying to...",
+        note: "Everyday way to talk about a habit you're working on. Way more natural than 'I want to' or 'I try to'.",
+        sound: "'I've been' often sounds like 'I've bin', very fast."
+      }
+    ]
   }
 ];
