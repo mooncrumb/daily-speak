@@ -135,11 +135,26 @@ function renderMonth() {
   el.innerHTML = html;
 
   // click a day → prefill the form
+  // click a day → if has events, ask which to delete; else prefill form
   el.querySelectorAll(".day-cell:not(.empty)").forEach(cell => {
     cell.addEventListener("click", () => {
-      const input = document.getElementById("eventDate");
-      input.value = cell.dataset.date;
-      document.getElementById("eventName").focus();
+      const dateStr = cell.dataset.date;
+      const dayEvents = events.filter(e => e.date === dateStr);
+      if (dayEvents.length > 0) {
+        // show delete prompt
+        const names = dayEvents.map((e, i) => (i + 1) + ". " + e.name + (e.time ? " (" + e.time + ")" : "")).join("\n");
+        const choice = prompt("events on " + dateStr + ":\n\n" + names + "\n\ntype the number to delete, or cancel:");
+        if (choice) {
+          const idx = parseInt(choice, 10) - 1;
+          if (dayEvents[idx]) {
+            deleteEvent(dayEvents[idx].id);
+          }
+        }
+      } else {
+        // prefill form
+        document.getElementById("eventDate").value = dateStr;
+        document.getElementById("eventName").focus();
+      }
     });
   });
 }
@@ -188,10 +203,10 @@ function renderUpcomingList() {
 
 /* ---------- add / delete ---------- */
 
-function addEvent(name, date, emoji) {
+function addEvent(name, date, time, emoji) {
   events.push({
     id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
-    name, date, emoji
+    name, date, time, emoji
   });
   saveEvents(events);
   renderAll();
@@ -236,10 +251,12 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
     const name = document.getElementById("eventName").value.trim();
     const date = document.getElementById("eventDate").value;
+    const time = document.getElementById("eventTime").value;
     const emoji = document.getElementById("eventEmoji").value;
     if (!name || !date) return;
-    addEvent(name, date, emoji);
+    addEvent(name, date, time, emoji);
     document.getElementById("eventName").value = "";
     document.getElementById("eventDate").value = "";
+    document.getElementById("eventTime").value = "";
   });
 });
