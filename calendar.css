@@ -5,113 +5,151 @@
 /* ---------- HERO COUNTDOWN (nearest event) ---------- */
 
 .hero-countdown {
-  margin-bottom: 32px;
+  margin-bottom: 40px;
   min-height: 0;
 }
 
 .hero-countdown-inner {
-  background: linear-gradient(135deg, rgba(255, 61, 139, 0.15), rgba(184, 48, 107, 0.08));
-  border: 1px solid rgba(255, 61, 139, 0.3);
-  border-radius: 28px;
-  padding: 32px 36px;
   display: flex;
   align-items: center;
-  gap: 28px;
+  justify-content: center;
+  gap: 40px;
+  padding: 20px;
+  flex-wrap: wrap;
   position: relative;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(255, 61, 139, 0.2);
 }
 
-.hero-countdown-inner::before {
-  content: "";
+/* Big circular countdown ring */
+.hero-ring {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  flex-shrink: 0;
+  animation: heroPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes heroPulse {
+  0%, 100% { filter: drop-shadow(0 0 30px var(--accent-glow)); }
+  50%      { filter: drop-shadow(0 0 60px var(--accent-glow)); }
+}
+
+.hero-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+
+.hero-ring-track {
+  fill: none;
+  stroke: rgba(247, 158, 180, 0.12);
+  stroke-width: 8;
+}
+
+.hero-ring-progress {
+  fill: none;
+  stroke: url(#ringGrad);
+  stroke-width: 8;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s cubic-bezier(.22,.9,.34,1);
+}
+
+.hero-ring-center {
   position: absolute;
-  top: -80px;
-  right: -80px;
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, var(--accent) 0%, transparent 60%);
-  opacity: 0.35;
-  filter: blur(40px);
-}
-
-.hero-emoji {
-  font-size: 3.5rem;
-  line-height: 1;
-  filter: drop-shadow(0 0 20px var(--accent-glow));
-}
-
-.hero-info { flex: 1; z-index: 1; }
-
-.hero-label {
-  font-family: var(--font-accent);
-  font-style: italic;
-  color: var(--accent);
-  font-size: 0.85rem;
-  text-transform: lowercase;
-  letter-spacing: 0.12em;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-
-.hero-name {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(1.6rem, 3vw, 2.2rem);
-  color: var(--white);
-  margin: 0 0 6px;
-  line-height: 1.15;
-  letter-spacing: -0.01em;
-}
-
-.hero-date {
-  font-family: var(--font-accent);
-  font-style: italic;
-  color: var(--accent-soft);
-  font-size: 1rem;
-  margin: 0;
-}
-
-.hero-days {
+  inset: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 1;
-  min-width: 130px;
+  justify-content: center;
+  gap: 4px;
+  padding: 20px;
+  text-align: center;
 }
 
-.hero-days-num {
+.hero-ring-num {
   font-family: var(--font-accent);
   font-style: italic;
   font-weight: 900;
-  font-size: clamp(4rem, 8vw, 6rem);
+  font-size: 6rem;
   line-height: 0.9;
   background: linear-gradient(135deg, var(--white) 20%, var(--accent-soft) 60%, var(--accent) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: -0.04em;
-  text-shadow: 0 0 40px rgba(255, 61, 139, 0.4);
 }
 
-.hero-days-label {
+.hero-ring-label {
   font-family: var(--font-accent);
   font-style: italic;
   color: var(--accent-soft);
   font-size: 0.95rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.15em;
   text-transform: lowercase;
-  margin-top: 4px;
   font-weight: 700;
+}
+
+.hero-ring-emoji {
+  font-size: 1.8rem;
+  margin-top: 4px;
+}
+
+/* Info to the side */
+.hero-info {
+  flex: 1;
+  min-width: 240px;
+  max-width: 400px;
+}
+
+.hero-label {
+  font-family: var(--font-accent);
+  font-style: italic;
+  color: var(--accent);
+  font-size: 0.9rem;
+  text-transform: lowercase;
+  letter-spacing: 0.16em;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.hero-name {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 900;
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--white);
+  margin: 0 0 8px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-transform: lowercase;
+}
+
+.hero-date {
+  font-family: var(--font-accent);
+  font-style: italic;
+  color: var(--accent-soft);
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.hero-time {
+  font-family: var(--font-body);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-top: 4px;
+  letter-spacing: 0.05em;
 }
 
 .hero-empty {
   background: rgba(26, 15, 20, 0.5);
   border: 1px dashed rgba(255, 180, 209, 0.2);
   border-radius: 28px;
-  padding: 40px;
+  padding: 60px 40px;
   text-align: center;
   color: var(--text-muted);
   font-style: italic;
+  width: 100%;
+}
+
+@media (max-width: 700px) {
+  .hero-ring { width: 220px; height: 220px; }
+  .hero-ring-num { font-size: 4.5rem; }
 }
 
 /* ---------- MONTH GRID ---------- */
